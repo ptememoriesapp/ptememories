@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # PTE Memories Hub — Next.js
 
 A community platform for verified PTE exam memories.
@@ -61,3 +62,6 @@ src/
 3. Build command: `npm run build`
 4. Publish dir: `.next`
 5. Add env var: `NEXT_PUBLIC_GOOGLE_SCRIPT_URL`
+=======
+# ptememories
+>>>>>>> 9ca37271c3d35cee0dca6163484437c69b07b343
