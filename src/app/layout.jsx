@@ -5,7 +5,8 @@ import PageProgress from '../components/PageProgress'
 import { GoogleAnalytics } from '@next/third-parties/google'
 
 
-const siteUrl = 'https://ptememories.com'
+// const siteUrl = 'https://ptememories.com'
+const siteUrl = process.env.SITE_URL
 
 export const metadata = {
   metadataBase: new URL(siteUrl),
