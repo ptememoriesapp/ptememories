@@ -61,6 +61,7 @@ export default function RootLayout({ children }) {
       <head>
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <meta name="theme-color" content="#4F46E5" />
+        <meta name="google-site-verification" content="L7Wp3jBnePfszIbVeiPlyDn-t-o6GFHeC70pw-FRLcc" />
         <link
           href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap"
           rel="stylesheet"
