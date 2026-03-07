@@ -1,0 +1,67 @@
+/* src/styles/globals.css */
+:root {
+  --bg: #F8F7F4;
+  --white: #FFFFFF;
+  --off: #F3F2EF;
+  --ink: #1A1A2E;
+  --ink-soft: #3D3D56;
+  --ink-muted: #8A8A9A;
+  --border: #E8E8F0;
+  --indigo: #4F46E5;
+  --indigo-light: #6366F1;
+  --indigo-bg: #EEF2FF;
+  --green: #059669;
+  --green-bg: #ECFDF5;
+  --green-border: #A7F3D0;
+  --tip-bg: #FFFBEB;
+  --tip-border: #FDE68A;
+  --tip-text: #78350F;
+  --sp: #3B82F6;
+  --sp-bg: #EFF6FF;
+  --sp-dark: #1D4ED8;
+  --wr: #F59E0B;
+  --wr-bg: #FFFBEB;
+  --wr-dark: #92400E;
+  --rd: #10B981;
+  --rd-bg: #F0FDF4;
+  --rd-dark: #065F46;
+  --li: #8B5CF6;
+  --li-bg: #F5F3FF;
+  --li-dark: #5B21B6;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.12);
+  --nav-height: 58px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+input {
+  font-family: inherit;
+}

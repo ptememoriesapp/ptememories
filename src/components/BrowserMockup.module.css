@@ -1,0 +1,80 @@
+/* src/components/BrowserMockup.module.css */
+
+.mockup {
+  background: var(--white);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(0,0,0,.08),
+    0 20px 60px rgba(0,0,0,.14),
+    0 4px 12px rgba(0,0,0,.06);
+}
+
+/* ── Chrome bar ── */
+.chrome {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1.1rem;
+  background: #F0EFF0;
+  border-bottom: 1px solid rgba(0,0,0,.09);
+}
+
+.dots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.dotRed,
+.dotYellow,
+.dotGreen {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: block;
+}
+.dotRed    { background: #FF5F57; }
+.dotYellow { background: #FEBC2E; }
+.dotGreen  { background: #28C840; }
+
+.urlBar {
+  flex: 1;
+  background: white;
+  border: 1px solid rgba(0,0,0,.1);
+  border-radius: 7px;
+  padding: 0.3rem 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.urlText {
+  font-size: 0.78rem;
+  color: #555;
+  font-family: 'DM Sans', sans-serif;
+  letter-spacing: 0.01em;
+}
+
+.secure {
+  font-size: 0.72rem;
+  color: var(--green);
+  font-weight: 600;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+/* ── Content ── */
+.content {
+  background: var(--white);
+  max-height: 480px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0,0,0,.12) transparent;
+}
+
+.content::-webkit-scrollbar { width: 5px; }
+.content::-webkit-scrollbar-thumb { background: rgba(0,0,0,.12); border-radius: 20px; }
