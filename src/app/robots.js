@@ -2,6 +2,6 @@
 export default function robots() {
   return {
     rules: { userAgent: '*', allow: '/' },
-    sitemap: 'https://ptememories.com/sitemap.xml',
+    sitemap: `${process.env.SITE_URL}/sitemap.xml`,
   }
 }

@@ -1,6 +1,6 @@
 // src/app/sitemap.js
 export default function sitemap() {
-  const baseUrl = 'https://ptememories.com'
+  const baseUrl = process.env.SITE_URL
 
   return [
     { url: baseUrl,                      lastModified: new Date(), changeFrequency: 'weekly',  priority: 1.0 },
