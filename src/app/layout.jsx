@@ -3,6 +3,7 @@ import '../styles/globals.css'
 import Nav from '../components/Nav'
 import PageProgress from '../components/PageProgress'
 import { GoogleAnalytics } from '@next/third-parties/google'
+import { Analytics } from '@vercel/analytics/next'
 
 
 // const siteUrl = 'https://ptememories.com'
@@ -89,7 +90,7 @@ export default function RootLayout({ children }) {
         <Nav />
         <main>{children}</main>
         <GoogleAnalytics gaId="G-Q8S79SCJPW" />
-
+        <Analytics />
       </body>
     </html>
   )
