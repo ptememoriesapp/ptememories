@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> dd3af0f47cdf998e43a741b3d68ca00b7e4ff0d0
 # PTE Memories Hub — Next.js
 
 A community platform for verified PTE exam memories.
@@ -64,4 +67,8 @@ src/
 5. Add env var: `NEXT_PUBLIC_GOOGLE_SCRIPT_URL`
 =======
 # ptememories
+<<<<<<< HEAD
 >>>>>>> 9ca37271c3d35cee0dca6163484437c69b07b343
+=======
+
+>>>>>>> dd3af0f47cdf998e43a741b3d68ca00b7e4ff0d0
