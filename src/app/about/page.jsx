@@ -1,6 +1,7 @@
 // src/app/about/page.jsx
 import Link from 'next/link'
 import styles from './page.module.css'
+import Footer from '../../components/Footer'
 
 const VALUES = [
   { icon: '🔍', name: 'Authentic over Popular', desc: 'We track real reports from real exam dates. A question seen by 2 people last week matters more than one "upvoted" 100 times three years ago.' },
@@ -129,15 +130,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <footer className={styles.footer}>
-        <div className={styles.footerLogo}>📝 PTE Memories</div>
-        <div className={styles.footerLinks}>
-          <Link href="/memories" className={styles.footerLink}>Memories</Link>
-          <Link href="/how-it-works" className={styles.footerLink}>How It Works</Link>
-          <Link href="/about" className={styles.footerLink}>About</Link>
-        </div>
-        <div className={styles.footerRight}>Not affiliated with Pearson VUE · © 2026</div>
-      </footer>
+      <Footer />
     </>
   )
 }

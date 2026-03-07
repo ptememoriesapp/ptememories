@@ -71,3 +71,16 @@
 .footerRight { font-size: .7rem; color: rgba(255,255,255,.15); }
 
 @media (max-width: 768px) { .stepTimeline::before { display: none; } .secGrid { grid-template-columns: 1fr; } }
+
+.ctaEarly {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #FCD34D;
+  background: rgba(252,211,77,.1);
+  border: 1px solid rgba(252,211,77,.25);
+  padding: 0.28rem 0.8rem;
+  border-radius: 20px;
+  margin-bottom: 1rem;
+}

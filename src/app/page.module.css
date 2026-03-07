@@ -506,8 +506,10 @@
   .hiwSteps { grid-template-columns: 1fr; }
   .featGrid { grid-template-columns: 1fr 1fr; }
   .peekInner { grid-template-columns: 1fr; gap: 2rem; }
-  .peekLeft { padding-top: 0; }
-  .mockupCards { max-height: 360px; }
+  .peekLeft { padding-top: 0; text-align: center; }
+  .peekLeft .peekCta { justify-content: center; display: flex; }
+  .mockupWrap { max-width: 600px; margin: 0 auto; }
+  .mockupCards { max-height: 380px; }
 }
 
 @media (max-width: 768px) {
@@ -528,7 +530,7 @@
   .featGrid { grid-template-columns: 1fr; }
   .psGrid { grid-template-columns: 1fr; }
   .wlStrip { flex-wrap: wrap; }
-  .mockupFilters { display: none; }
-  .browserMockup { border-radius: 10px; }
+  .mockupWrap { display: none; }
+  .peekLeft { text-align: left; }
   .earlyAccess { font-size: .72rem; }
 }

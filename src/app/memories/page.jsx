@@ -6,6 +6,7 @@ import MemoryCard from '../../components/MemoryCard'
 import WaitlistForm from '../../components/WaitlistForm'
 import { MEMORIES, getMemoriesBySection } from '../../lib/memories'
 import styles from './page.module.css'
+import Footer from '../../components/Footer'
 
 const FILTERS = [
   { key: 'all', label: 'All sections' },
@@ -91,6 +92,7 @@ export default function MemoriesPage() {
 
           {/* Bottom CTA strip */}
           <div className={styles.joinStrip}>
+            <div className={styles.stripEarly}>🔥 Join early access — help shape the platform.</div>
             <h3 className={styles.stripTitle}>1,200+ more memories <em>coming.</em></h3>
             <p className={styles.stripSub}>Get notified when the full platform launches.</p>
             <div className={styles.stripForm}>
@@ -100,15 +102,7 @@ export default function MemoriesPage() {
         </div>
       </div>
 
-      <footer className={styles.footer}>
-        <div className={styles.footerLogo}>📝 PTE Memories</div>
-        <div className={styles.footerLinks}>
-          <Link href="/memories" className={styles.footerLink}>Memories</Link>
-          <Link href="/how-it-works" className={styles.footerLink}>How It Works</Link>
-          <Link href="/about" className={styles.footerLink}>About</Link>
-        </div>
-        <div className={styles.footerRight}>Not affiliated with Pearson VUE · © 2026</div>
-      </footer>
+      <Footer />
     </>
   )
 }

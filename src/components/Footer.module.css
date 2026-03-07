@@ -1,0 +1,70 @@
+/* src/components/Footer.module.css */
+.footer {
+  background: #111118;
+  padding: 1.8rem 5vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  border-top: 1px solid rgba(255,255,255,.05);
+}
+
+.footerLogo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+}
+
+.logoIcon {
+  width: 28px; height: 28px;
+  background: linear-gradient(135deg, #4F46E5, #818CF8);
+  border-radius: 7px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  opacity: 0.75;
+}
+
+.logoText {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+  gap: 0.16rem;
+}
+
+.logoName {
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,.35);
+}
+
+.logoSub {
+  font-size: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.18);
+}
+
+.footerLinks {
+  display: flex;
+  gap: 1.3rem;
+}
+
+.footerLink {
+  font-size: 0.73rem;
+  color: rgba(255,255,255,.2);
+  text-decoration: none;
+  transition: color .15s;
+}
+.footerLink:hover { color: rgba(255,255,255,.5); }
+
+.footerRight {
+  font-size: 0.7rem;
+  color: rgba(255,255,255,.15);
+}
+
+@media (max-width: 600px) {
+  .footer { flex-direction: column; align-items: flex-start; gap: .75rem; }
+}

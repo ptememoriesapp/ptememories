@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import styles from './page.module.css'
+import Footer from '../../components/Footer'
 
 const STEPS = [
   {
@@ -182,6 +183,7 @@ export default function HowItWorksPage() {
 
       {/* CTA */}
       <section className={styles.ctaSection}>
+        <div className={styles.ctaEarly}>🔥 Join early access — help shape the platform.</div>
         <h2 className={styles.ctaTitle}>Ready to help the<br /><em>next student?</em></h2>
         <p className={styles.ctaSub}>Join the waitlist. Share your exam memories. Help the students who come after you.</p>
         <div className={styles.ctaActions}>
@@ -190,15 +192,7 @@ export default function HowItWorksPage() {
         </div>
       </section>
 
-      <footer className={styles.footer}>
-        <div className={styles.footerLogo}>📝 PTE Memories</div>
-        <div className={styles.footerLinks}>
-          <Link href="/memories" className={styles.footerLink}>Memories</Link>
-          <Link href="/how-it-works" className={styles.footerLink}>How It Works</Link>
-          <Link href="/about" className={styles.footerLink}>About</Link>
-        </div>
-        <div className={styles.footerRight}>Not affiliated with Pearson VUE · © 2026</div>
-      </footer>
+      <Footer />
     </>
   )
 }

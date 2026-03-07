@@ -1,6 +1,7 @@
 // src/app/layout.jsx
 import '../styles/globals.css'
 import Nav from '../components/Nav'
+import PageProgress from '../components/PageProgress'
 
 const siteUrl = 'https://ptememories.com'
 
@@ -80,6 +81,7 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body>
+        <PageProgress />
         <Nav />
         <main>{children}</main>
       </body>
