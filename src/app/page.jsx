@@ -29,7 +29,7 @@ export default function HomePage() {
           <div className={styles.heroLeft}>
             <div className={styles.eyebrow}>🎓 For PTE students, by PTE students</div>
             <h1 className={styles.heroTitle}>
-              Real exam memories.<br />
+              Real PTE exam memories.<br />
               <em>Verified. Organised.</em><br />
               Free forever.
             </h1>
