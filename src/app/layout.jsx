@@ -6,7 +6,7 @@ import { GoogleAnalytics } from '@next/third-parties/google'
 
 
 // const siteUrl = 'https://ptememories.com'
-const siteUrl = process.env.SITE_URL
+const siteUrl = process.env.NEXT_SITE_URL
 
 export const metadata = {
   metadataBase: new URL(siteUrl),

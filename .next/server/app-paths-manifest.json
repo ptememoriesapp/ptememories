@@ -1,6 +1,6 @@
 {
-  "/memories/page": "app/memories/page.js",
+  "/about/page": "app/about/page.js",
   "/how-it-works/page": "app/how-it-works/page.js",
-  "/page": "app/page.js",
-  "/about/page": "app/about/page.js"
+  "/memories/page": "app/memories/page.js",
+  "/page": "app/page.js"
 }
