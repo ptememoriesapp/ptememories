@@ -20,22 +20,43 @@
 .Nav_logo__7KrlL {
   display: flex;
   align-items: center;
-  gap: 0.55rem;
-  font-weight: 700;
-  font-size: 0.95rem;
-  color: var(--ink);
+  gap: 0.6rem;
   text-decoration: none;
+  flex-shrink: 0;
 }
 
 .Nav_logoIcon__iHoBx {
-  width: 28px;
-  height: 28px;
-  background: var(--indigo);
-  border-radius: 7px;
+  width: 30px;
+  height: 30px;
+  background: linear-gradient(135deg, #4F46E5, #818CF8);
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.78rem;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(79,70,229,.3);
+}
+
+.Nav_logoText__U_7PR {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+  gap: 0.18rem;
+}
+
+.Nav_logoName__DbtBi {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--ink);
+  letter-spacing: -0.1px;
+}
+
+.Nav_logoSub__BlRCF {
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--indigo);
 }
 
 .Nav_links__TBJFU {

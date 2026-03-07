@@ -17,8 +17,16 @@ export default function Nav() {
   return (
     <nav className={styles.nav}>
       <Link href="/" className={styles.logo}>
-        <div className={styles.logoIcon}>📝</div>
-        PTE Memories Hub
+        <div className={styles.logoIcon}>
+          <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+            <path d="M2.5 4.5h10M2.5 7.5h7M2.5 10.5h8.5" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="11.5" cy="10.5" r="2.2" fill="#FCD34D"/>
+          </svg>
+        </div>
+        <div className={styles.logoText}>
+          <span className={styles.logoName}>PTE Memories Hub</span>
+          <span className={styles.logoSub}>Exam Memories</span>
+        </div>
       </Link>
 
       <div className={styles.links}>
