@@ -35,6 +35,7 @@ export default function HomePage() {
             <p className={styles.heroSub}>
               PTE students share what they remember after their exam. Every memory is admin-verified and organised by section, date, and question type. No Telegram chaos. No fake upvotes. Just real data.
             </p>
+            <div className={styles.earlyAccess}>🔥 Join early access — help shape the platform.</div>
             <WaitlistForm source="hero" placeholder="Enter your email address" btnText="Join Waitlist →" />
             <p className={styles.formNote}>🔒 No spam. One launch email. Unsubscribe anytime.</p>
 
@@ -142,7 +143,7 @@ export default function HomePage() {
               ))}
             </div>
             <div className={`${styles.psCard} ${styles.psGood}`}>
-              <div className={styles.psLabel}>✅ With PTE Memories Hub</div>
+              <div className={styles.psLabel}>✅ With PTE Memories</div>
               {[
                 'One organized, searchable platform — filter by section, date, question type instantly',
                 'Frequency tracking — "9 people on 9 different dates confirmed this" is real data',
@@ -208,7 +209,7 @@ export default function HomePage() {
                   <span className={styles.dotY} />
                   <span className={styles.dotG} />
                 </div>
-                <div className={styles.chromeUrl}>ptememorieshub.com/memories</div>
+                <div className={styles.chromeUrl}>/memories</div>
                 <div className={styles.chromeSecure}>🔒 Secure</div>
               </div>
 
@@ -343,6 +344,7 @@ export default function HomePage() {
         <h2 className={styles.ctaTitle}>Be first to know<br />when we <em>launch.</em></h2>
         <p className={styles.ctaSub}>Join students from India, Australia, Canada, UK and 50+ countries.</p>
         <div className={styles.ctaFormWrap}>
+          <div className={styles.earlyAccessDark}>🔥 Join early access — help shape the platform.</div>
           <WaitlistForm source="cta" theme="dark" placeholder="your@email.com" btnText="Notify Me →" />
           <p className={styles.ctaNote}>No spam. One launch email. That&apos;s it.</p>
         </div>
@@ -350,7 +352,7 @@ export default function HomePage() {
 
       {/* FOOTER */}
       <footer className={styles.footer}>
-        <div className={styles.footerLogo}>📝 PTE Memories Hub</div>
+        <div className={styles.footerLogo}>📝 PTE Memories</div>
         <div className={styles.footerLinks}>
           <Link href="/memories" className={styles.footerLink}>Memories</Link>
           <Link href="/how-it-works" className={styles.footerLink}>How It Works</Link>

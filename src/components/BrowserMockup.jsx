@@ -1,7 +1,7 @@
 // src/components/BrowserMockup.jsx
 import styles from './BrowserMockup.module.css'
 
-export default function BrowserMockup({ url = 'ptememorieshub.com/memories', children }) {
+export default function BrowserMockup({ url = '/memories', children }) {
   return (
     <div className={styles.mockup}>
       {/* Browser chrome top bar */}

@@ -130,7 +130,7 @@ export default function AboutPage() {
       </section>
 
       <footer className={styles.footer}>
-        <div className={styles.footerLogo}>📝 PTE Memories Hub</div>
+        <div className={styles.footerLogo}>📝 PTE Memories</div>
         <div className={styles.footerLinks}>
           <Link href="/memories" className={styles.footerLink}>Memories</Link>
           <Link href="/how-it-works" className={styles.footerLink}>How It Works</Link>

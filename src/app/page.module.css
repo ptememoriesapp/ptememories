@@ -444,7 +444,35 @@
 
 
 
-/* ── FEATURES ── */
+/* ── EARLY ACCESS ── */
+.earlyAccess {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #92400E;
+  background: #FEF3C7;
+  border: 1px solid #FDE68A;
+  padding: 0.3rem 0.85rem;
+  border-radius: 20px;
+  margin-bottom: 0.75rem;
+}
+
+.earlyAccessDark {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #FCD34D;
+  background: rgba(252,211,77,.1);
+  border: 1px solid rgba(252,211,77,.25);
+  padding: 0.3rem 0.85rem;
+  border-radius: 20px;
+  margin-bottom: 0.85rem;
+}
+
+
 .featGrid { display: grid; grid-template-columns: repeat(3,1fr); gap: .9rem; margin-top: 2.2rem; }
 .featCard { background: var(--bg); border: 1px solid var(--border); border-radius: 14px; padding: 1.4rem; transition: transform .2s, box-shadow .2s, background .2s; }
 .featCard:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); background: var(--white); }
@@ -481,7 +509,26 @@
   .peekLeft { padding-top: 0; }
   .mockupCards { max-height: 360px; }
 }
+
+@media (max-width: 768px) {
+  .hero { padding: 6rem 5vw 3.5rem; min-height: auto; }
+  .heroTitle { font-size: clamp(2rem, 8vw, 3rem); }
+  .heroSub { font-size: .88rem; }
+  .section { padding: 3.5rem 5vw; }
+  .peekSection { padding: 3.5rem 5vw; }
+  .mockupFilters { gap: .35rem; overflow-x: auto; flex-wrap: nowrap; padding: .65rem .85rem; }
+  .mfChip { font-size: .68rem; padding: .26rem .65rem; white-space: nowrap; }
+  .mfSearch { display: none; }
+  .ctaSection { padding: 4rem 5vw; }
+  .ctaTitle { font-size: clamp(1.8rem, 6vw, 2.8rem); }
+  .footer { flex-direction: column; align-items: flex-start; gap: .75rem; }
+}
+
 @media (max-width: 600px) {
   .featGrid { grid-template-columns: 1fr; }
+  .psGrid { grid-template-columns: 1fr; }
+  .wlStrip { flex-wrap: wrap; }
   .mockupFilters { display: none; }
+  .browserMockup { border-radius: 10px; }
+  .earlyAccess { font-size: .72rem; }
 }

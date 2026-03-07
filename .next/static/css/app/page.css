@@ -449,7 +449,35 @@
 
 
 
-/* ── FEATURES ── */
+/* ── EARLY ACCESS ── */
+.page_earlyAccess__9Nlne {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #92400E;
+  background: #FEF3C7;
+  border: 1px solid #FDE68A;
+  padding: 0.3rem 0.85rem;
+  border-radius: 20px;
+  margin-bottom: 0.75rem;
+}
+
+.page_earlyAccessDark__fJ_d_ {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #FCD34D;
+  background: rgba(252,211,77,.1);
+  border: 1px solid rgba(252,211,77,.25);
+  padding: 0.3rem 0.85rem;
+  border-radius: 20px;
+  margin-bottom: 0.85rem;
+}
+
+
 .page_featGrid__uUjkh { display: grid; grid-template-columns: repeat(3,1fr); grid-gap: .9rem; gap: .9rem; margin-top: 2.2rem; }
 .page_featCard__UGz8A { background: var(--bg); border: 1px solid var(--border); border-radius: 14px; padding: 1.4rem; transition: transform .2s, box-shadow .2s, background .2s; }
 .page_featCard__UGz8A:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); background: var(--white); }
@@ -486,9 +514,28 @@
   .page_peekLeft__AVvWq { padding-top: 0; }
   .page_mockupCards__IxcON { max-height: 360px; }
 }
+
+@media (max-width: 768px) {
+  .page_hero__SKW6o { padding: 6rem 5vw 3.5rem; min-height: auto; }
+  .page_heroTitle__Gfler { font-size: clamp(2rem, 8vw, 3rem); }
+  .page_heroSub__YNSLe { font-size: .88rem; }
+  .page_section__61PEw { padding: 3.5rem 5vw; }
+  .page_peekSection__zrV07 { padding: 3.5rem 5vw; }
+  .page_mockupFilters__0azxu { gap: .35rem; overflow-x: auto; flex-wrap: nowrap; padding: .65rem .85rem; }
+  .page_mfChip__ak7Ci { font-size: .68rem; padding: .26rem .65rem; white-space: nowrap; }
+  .page_mfSearch__GXAK9 { display: none; }
+  .page_ctaSection__tPv8w { padding: 4rem 5vw; }
+  .page_ctaTitle__T8028 { font-size: clamp(1.8rem, 6vw, 2.8rem); }
+  .page_footer__sHKi3 { flex-direction: column; align-items: flex-start; gap: .75rem; }
+}
+
 @media (max-width: 600px) {
   .page_featGrid__uUjkh { grid-template-columns: 1fr; }
+  .page_psGrid__v_UpD { grid-template-columns: 1fr; }
+  .page_wlStrip__HaXuj { flex-wrap: wrap; }
   .page_mockupFilters__0azxu { display: none; }
+  .page_browserMockup__fp4Fl { border-radius: 10px; }
+  .page_earlyAccess__9Nlne { font-size: .72rem; }
 }
 
 /*!**********************************************************************************************************************************************************************************************************************************************************************************!*\

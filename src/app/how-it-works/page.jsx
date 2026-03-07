@@ -77,7 +77,7 @@ const FAQS = [
   },
   {
     q: 'Will this always be free?',
-    a: 'Yes. PTE Memories Hub is a community resource built to help students, not to monetize them. There will never be a paywall, premium tier, or paid access. This is a commitment, not just a launch promise.',
+    a: 'Yes. PTE Memories is a community resource built to help students, not to monetize them. There will never be a paywall, premium tier, or paid access. This is a commitment, not just a launch promise.',
   },
   {
     q: 'Can I share anonymously?',
@@ -191,7 +191,7 @@ export default function HowItWorksPage() {
       </section>
 
       <footer className={styles.footer}>
-        <div className={styles.footerLogo}>📝 PTE Memories Hub</div>
+        <div className={styles.footerLogo}>📝 PTE Memories</div>
         <div className={styles.footerLinks}>
           <Link href="/memories" className={styles.footerLink}>Memories</Link>
           <Link href="/how-it-works" className={styles.footerLink}>How It Works</Link>
