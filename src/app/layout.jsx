@@ -2,11 +2,8 @@
 import '../styles/globals.css'
 import Nav from '../components/Nav'
 import PageProgress from '../components/PageProgress'
-import { GoogleAnalytics } from '@next/third-parties/google'
 
-
-// const siteUrl = 'https://ptememories.com'
-const siteUrl = process.env.NEXT_SITE_URL
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://ptememories.com'
 
 export const metadata = {
   metadataBase: new URL(siteUrl),
@@ -61,7 +58,6 @@ export default function RootLayout({ children }) {
       <head>
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <meta name="theme-color" content="#4F46E5" />
-        <meta name="google-site-verification" content="L7Wp3jBnePfszIbVeiPlyDn-t-o6GFHeC70pw-FRLcc" />
         <link
           href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap"
           rel="stylesheet"
@@ -88,8 +84,6 @@ export default function RootLayout({ children }) {
         <PageProgress />
         <Nav />
         <main>{children}</main>
-        <GoogleAnalytics gaId="G-Q8S79SCJPW" />
-
       </body>
     </html>
   )

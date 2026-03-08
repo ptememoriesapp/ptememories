@@ -473,6 +473,196 @@
 }
 
 
+/* ── PEEK PILLS & MOBILE CARDS ── */
+.peekPills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .45rem;
+  margin-bottom: 1.4rem;
+}
+.peekPill {
+  font-size: .72rem;
+  font-weight: 700;
+  padding: .28rem .75rem;
+  border-radius: 20px;
+  letter-spacing: .2px;
+}
+
+.mobilePeekCards {
+  display: none;
+  flex-direction: column;
+  gap: .75rem;
+  margin-bottom: 1.5rem;
+}
+
+.mpc {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,.07);
+}
+
+.mpcTop {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  padding: .7rem .9rem;
+  border-bottom: 1px solid var(--border);
+}
+.mpcAv {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .65rem; font-weight: 700; color: white;
+  flex-shrink: 0;
+}
+.mpcInfo { flex: 1; display: flex; flex-direction: column; gap: .1rem; }
+.mpcName { font-size: .8rem; font-weight: 700; color: var(--ink); }
+.mpcMeta { font-size: .62rem; color: var(--ink-muted); }
+.mpcScore {
+  font-size: .7rem; font-weight: 700;
+  background: var(--ink); color: #FCD34D;
+  padding: .18rem .55rem; border-radius: 20px;
+}
+
+.mpcSection {
+  padding: .6rem .9rem;
+  background: var(--off);
+  border-bottom: 1px solid var(--border);
+}
+.mpcSecLabel {
+  font-size: .62rem; font-weight: 800;
+  letter-spacing: 1px; text-transform: uppercase;
+  color: var(--ink-muted); display: block; margin-bottom: .25rem;
+}
+.mpcSecText {
+  font-size: .78rem; color: var(--ink-soft);
+  line-height: 1.5; margin: 0;
+}
+
+.mpcFooter {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: .45rem .9rem;
+}
+.mpcFreq { font-size: .65rem; color: var(--ink-muted); font-weight: 600; }
+.mpcHigh {
+  font-size: .62rem; font-weight: 700;
+  background: #FEF2F2; color: #DC2626;
+  padding: .15rem .5rem; border-radius: 20px;
+  border: 1px solid #FECACA;
+}
+
+/* ── DISCOVERY SECTION ── */
+.discoverSection {
+  padding: 5rem 5vw;
+  background: var(--bg);
+}
+
+.discoverSub {
+  font-size: .92rem;
+  color: var(--ink-muted);
+  margin-top: .4rem;
+  margin-bottom: 2rem;
+  max-width: 520px;
+}
+
+.sectionCards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.sCard {
+  display: block;
+  text-decoration: none;
+  background: white;
+  border: 1.5px solid var(--border);
+  border-radius: 16px;
+  padding: 1.2rem;
+  transition: all .2s;
+  cursor: pointer;
+}
+.sCard:hover {
+  transform: translateY(-4px);
+  border-color: var(--sborder, var(--border));
+  box-shadow: 0 8px 28px rgba(0,0,0,.1);
+  background: var(--sbg, white);
+}
+
+.sCardTop {
+  display: flex;
+  align-items: center;
+  gap: .65rem;
+  margin-bottom: .9rem;
+}
+.sCardIcon {
+  width: 38px; height: 38px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; flex-shrink: 0;
+}
+.sCardLabel {
+  font-weight: 800;
+  font-size: .9rem;
+  line-height: 1;
+  margin-bottom: .18rem;
+}
+.sCardCount {
+  font-size: .68rem;
+  color: var(--ink-muted);
+  font-weight: 600;
+}
+.sCardArrow {
+  margin-left: auto;
+  font-size: 1rem;
+  font-weight: 700;
+  opacity: .5;
+  transition: transform .2s, opacity .2s;
+}
+.sCard:hover .sCardArrow { transform: translateX(3px); opacity: 1; }
+
+.sCardTypes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .3rem;
+}
+.sCardType {
+  font-size: .62rem;
+  font-weight: 600;
+  padding: .2rem .55rem;
+  border-radius: 20px;
+  border: 1px solid;
+}
+
+.discoverCta {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+}
+.discoverBtn {
+  display: inline-flex;
+  align-items: center;
+  background: var(--ink);
+  color: white;
+  font-weight: 700;
+  font-size: .88rem;
+  padding: .75rem 1.6rem;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: all .2s;
+  box-shadow: 0 4px 14px rgba(0,0,0,.2);
+}
+.discoverBtn:hover { background: #2D2D3E; transform: translateY(-2px); }
+.discoverNote {
+  font-size: .78rem;
+  color: var(--ink-muted);
+  font-weight: 500;
+}
+
+/* ── FEATURES (unchanged) ── */
 .featGrid { display: grid; grid-template-columns: repeat(3,1fr); gap: .9rem; margin-top: 2.2rem; }
 .featCard { background: var(--bg); border: 1px solid var(--border); border-radius: 14px; padding: 1.4rem; transition: transform .2s, box-shadow .2s, background .2s; }
 .featCard:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); background: var(--white); }
@@ -505,9 +695,11 @@
   .psGrid { grid-template-columns: 1fr; }
   .hiwSteps { grid-template-columns: 1fr; }
   .featGrid { grid-template-columns: 1fr 1fr; }
+  .sectionCards { grid-template-columns: 1fr 1fr; }
   .peekInner { grid-template-columns: 1fr; gap: 2rem; }
   .peekLeft { padding-top: 0; text-align: center; }
   .peekLeft .peekCta { justify-content: center; display: flex; }
+  .peekPills { justify-content: center; }
   .mockupWrap { max-width: 600px; margin: 0 auto; }
   .mockupCards { max-height: 380px; }
 }
@@ -518,6 +710,7 @@
   .heroSub { font-size: .88rem; }
   .section { padding: 3.5rem 5vw; }
   .peekSection { padding: 3.5rem 5vw; }
+  .discoverSection { padding: 3.5rem 5vw; }
   .mockupFilters { gap: .35rem; overflow-x: auto; flex-wrap: nowrap; padding: .65rem .85rem; }
   .mfChip { font-size: .68rem; padding: .26rem .65rem; white-space: nowrap; }
   .mfSearch { display: none; }
@@ -528,9 +721,13 @@
 
 @media (max-width: 600px) {
   .featGrid { grid-template-columns: 1fr; }
+  .sectionCards { grid-template-columns: 1fr; }
   .psGrid { grid-template-columns: 1fr; }
   .wlStrip { flex-wrap: wrap; }
   .mockupWrap { display: none; }
+  .mobilePeekCards { display: flex; }
   .peekLeft { text-align: left; }
+  .peekPills { justify-content: flex-start; }
   .earlyAccess { font-size: .72rem; }
+  .discoverCta { flex-direction: column; align-items: flex-start; }
 }

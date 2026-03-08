@@ -195,6 +195,55 @@ export default function HomePage() {
             <div className={styles.sEyebrow}>— Sneak Peek</div>
             <h2 className={styles.peekTitle}>See what&apos;s inside.</h2>
             <p className={styles.peekSub}>Every memory is structured, verified, and organized so you find what you need in seconds — not after scrolling 500 messages.</p>
+
+            {/* Section pills - visible always */}
+            <div className={styles.peekPills}>
+              <span className={styles.peekPill} style={{ background: '#EEF2FF', color: '#4F46E5' }}>🎤 Speaking</span>
+              <span className={styles.peekPill} style={{ background: '#FFFBEB', color: '#B45309' }}>✍️ Writing</span>
+              <span className={styles.peekPill} style={{ background: '#ECFDF5', color: '#065F46' }}>📖 Reading</span>
+              <span className={styles.peekPill} style={{ background: '#F5F3FF', color: '#5B21B6' }}>🎧 Listening</span>
+            </div>
+
+            {/* Mobile-only mini cards */}
+            <div className={styles.mobilePeekCards}>
+              <div className={styles.mpc}>
+                <div className={styles.mpcTop}>
+                  <div className={styles.mpcAv} style={{ background: 'linear-gradient(135deg,#4F46E5,#818CF8)' }}>RM</div>
+                  <div className={styles.mpcInfo}>
+                    <span className={styles.mpcName}>Rahul M.</span>
+                    <span className={styles.mpcMeta}>📅 1 Mar 2026 · Delhi, India</span>
+                  </div>
+                  <span className={styles.mpcScore}>🎯 79</span>
+                </div>
+                <div className={styles.mpcSection} style={{ borderLeft: '3px solid #3B82F6' }}>
+                  <span className={styles.mpcSecLabel}>🎤 Speaking · READ ALOUD</span>
+                  <p className={styles.mpcSecText}>Coral reef restoration, ocean temp impacts. ~60 words. Difficult: "calcification".</p>
+                </div>
+                <div className={styles.mpcFooter}>
+                  <span className={styles.mpcFreq}>6 people confirmed</span>
+                  <span className={styles.mpcHigh}>🔴 High frequency</span>
+                </div>
+              </div>
+              <div className={styles.mpc}>
+                <div className={styles.mpcTop}>
+                  <div className={styles.mpcAv} style={{ background: 'linear-gradient(135deg,#059669,#34D399)' }}>PS</div>
+                  <div className={styles.mpcInfo}>
+                    <span className={styles.mpcName}>Priya S.</span>
+                    <span className={styles.mpcMeta}>📅 27 Feb 2026 · Melbourne</span>
+                  </div>
+                  <span className={styles.mpcScore}>🎯 86</span>
+                </div>
+                <div className={styles.mpcSection} style={{ borderLeft: '3px solid #8B5CF6' }}>
+                  <span className={styles.mpcSecLabel}>🎧 Listening · WRITE FROM DICT.</span>
+                  <p className={styles.mpcSecText}>The university offers postgraduate programs in engineering and applied sciences.</p>
+                </div>
+                <div className={styles.mpcFooter}>
+                  <span className={styles.mpcFreq}>9 people confirmed</span>
+                  <span className={styles.mpcHigh}>🔴 High frequency</span>
+                </div>
+              </div>
+            </div>
+
             <div className={styles.peekCta}>
               <Link href="/memories" className={styles.viewAllBtn}>Browse all memories →</Link>
             </div>
@@ -340,7 +389,46 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* BOTTOM CTA */}
+      {/* MEMORY DISCOVERY — drives clicks to /memories */}
+      <section className={styles.discoverSection}>
+        <div className={styles.sectionInner}>
+          <div className={styles.sEyebrow}>— Browse by Section</div>
+          <h2 className={styles.sTitle}>What&apos;s in the <em>memory bank?</em></h2>
+          <p className={styles.discoverSub}>Filter by your weak section. See the most reported questions. Arrive prepared.</p>
+          <div className={styles.sectionCards}>
+            {[
+              { icon: '🎤', label: 'Speaking', color: '#4F46E5', bg: '#EEF2FF', border: '#C7D2FE', types: ['Read Aloud', 'Retell Lecture', 'Describe Image', 'Short Answer'], count: '340+' },
+              { icon: '✍️', label: 'Writing',  color: '#B45309', bg: '#FFFBEB', border: '#FDE68A', types: ['Write Essay', 'Summarize Text'], count: '210+' },
+              { icon: '📖', label: 'Reading',  color: '#065F46', bg: '#ECFDF5', border: '#A7F3D0', types: ['FIB', 'R&W FIB', 'Reorder Paragraphs', 'MCQ'], count: '290+' },
+              { icon: '🎧', label: 'Listening', color: '#5B21B6', bg: '#F5F3FF', border: '#DDD6FE', types: ['Write from Dictation', 'Summarize Spoken', 'HCS', 'FIB'], count: '360+' },
+            ].map(s => (
+              <Link href="/memories" key={s.label} className={styles.sCard} style={{ '--sc': s.color, '--sbg': s.bg, '--sborder': s.border }}>
+                <div className={styles.sCardTop}>
+                  <span className={styles.sCardIcon} style={{ background: s.bg, border: `1px solid ${s.border}` }}>{s.icon}</span>
+                  <div>
+                    <div className={styles.sCardLabel} style={{ color: s.color }}>{s.label}</div>
+                    <div className={styles.sCardCount}>{s.count} memories</div>
+                  </div>
+                  <span className={styles.sCardArrow} style={{ color: s.color }}>→</span>
+                </div>
+                <div className={styles.sCardTypes}>
+                  {s.types.map(t => (
+                    <span key={t} className={styles.sCardType} style={{ background: s.bg, color: s.color, borderColor: s.border }}>{t}</span>
+                  ))}
+                </div>
+              </Link>
+            ))}
+          </div>
+          <div className={styles.discoverCta}>
+            <Link href="/memories" className={styles.discoverBtn}>
+              View All 1,200+ Memories →
+            </Link>
+            <span className={styles.discoverNote}>No account needed · Free forever</span>
+          </div>
+        </div>
+      </section>
+
+
       <section className={styles.ctaSection}>
         <h2 className={styles.ctaTitle}>Be first to know<br />when we <em>launch.</em></h2>
         <p className={styles.ctaSub}>Join students from India, Australia, Canada, UK and 50+ countries.</p>

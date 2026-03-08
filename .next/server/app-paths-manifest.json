@@ -1,6 +1,4 @@
 {
-  "/about/page": "app/about/page.js",
-  "/how-it-works/page": "app/how-it-works/page.js",
-  "/memories/page": "app/memories/page.js",
+  "/sitemap.xml/[[...__metadata_id__]]/route": "app/sitemap.xml/[[...__metadata_id__]]/route.js",
   "/page": "app/page.js"
 }
