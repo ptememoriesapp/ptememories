@@ -3,7 +3,32 @@
 import { useState } from 'react'
 import styles from './WaitlistForm.module.css'
 
-export default function WaitlistForm({ source = 'unknown', theme = 'light', placeholder = 'Enter your email address', btnText = 'Join Waitlist →' }) {
+// Fetch country accurately from ipapi.co (free, no key needed, ~100k/day)
+async function getCountry() {
+  try {
+    const res = await fetch('https://ipapi.co/json/', { cache: 'no-store' })
+    if (!res.ok) throw new Error()
+    const data = await res.json()
+    // Returns e.g. { country_name: "India", country_code: "IN", city: "Mumbai" }
+    return data.country_name || data.country_code || ''
+  } catch {
+    // Fallback: try ip-api.com
+    try {
+      const res2 = await fetch('http://ip-api.com/json/?fields=country,countryCode', { cache: 'no-store' })
+      const d2 = await res2.json()
+      return d2.country || ''
+    } catch {
+      return ''
+    }
+  }
+}
+
+export default function WaitlistForm({
+  source = 'unknown',
+  theme = 'light',
+  placeholder = 'Enter your email address',
+  btnText = 'Join Waitlist →',
+}) {
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState('idle') // idle | loading | success | error | duplicate
   const [errorMsg, setErrorMsg] = useState('')
@@ -12,7 +37,6 @@ export default function WaitlistForm({ source = 'unknown', theme = 'light', plac
     e.preventDefault()
     const trimmed = email.trim()
 
-    // Client-side validation
     if (!trimmed || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) {
       setStatus('error')
       setErrorMsg('Please enter a valid email address.')
@@ -22,46 +46,24 @@ export default function WaitlistForm({ source = 'unknown', theme = 'light', plac
     setStatus('loading')
 
     try {
-      const scriptUrl = process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL
+      // Fetch country in parallel with form submission prep
+      const country = await getCountry()
 
-      if (!scriptUrl || scriptUrl.includes('YOUR_SCRIPT_ID')) {
-        // Dev mode fallback — no real URL yet
-        await new Promise(r => setTimeout(r, 800))
+      // Call our own API proxy — no CORS issues, real response readable
+      const res = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: trimmed, source, country }),
+      })
+
+      const data = await res.json()
+
+      if (data.status === 'duplicate' || data.duplicate === true) {
+        setStatus('duplicate')
+      } else if (res.ok && !data.error) {
         setStatus('success')
-        return
-      }
-
-      // Google Apps Script requires no-cors for direct POST
-      // We use a small workaround: send as form data via fetch with no-cors
-      // and treat any response (including opaque) as success
-      const formData = new FormData()
-      formData.append('email', trimmed)
-      formData.append('source', source)
-      formData.append('country', navigator?.language?.split('-')[1] || '')
-
-      // Try JSON first (same-origin or CORS-enabled)
-      try {
-        const res = await fetch(scriptUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: trimmed, source, country: navigator?.language?.split('-')[1] || '' }),
-          mode: 'cors',
-        })
-        const data = await res.json()
-        if (data.duplicate) {
-          setStatus('duplicate')
-        } else {
-          setStatus('success')
-        }
-      } catch {
-        // Apps Script doesn't always support CORS — fall back to no-cors
-        // With no-cors we can't read response, but submission still goes through
-        await fetch(scriptUrl, {
-          method: 'POST',
-          body: JSON.stringify({ email: trimmed, source, country: navigator?.language?.split('-')[1] || '' }),
-          mode: 'no-cors',
-        })
-        setStatus('success')
+      } else {
+        throw new Error(data.error || 'Unknown error')
       }
     } catch (err) {
       setStatus('error')
@@ -107,9 +109,7 @@ export default function WaitlistForm({ source = 'unknown', theme = 'light', plac
           type="submit"
           disabled={status === 'loading'}
         >
-          {status === 'loading' ? (
-            <span className={styles.spinner} />
-          ) : btnText}
+          {status === 'loading' ? <span className={styles.spinner} /> : btnText}
         </button>
       </form>
       {status === 'error' && (
