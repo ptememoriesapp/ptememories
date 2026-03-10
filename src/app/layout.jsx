@@ -2,7 +2,8 @@
 import '../styles/globals.css'
 import Nav from '../components/Nav'
 import PageProgress from '../components/PageProgress'
-
+import { GoogleAnalytics } from '@next/third-parties/google'
+import { Analytics } from "@vercel/analytics/next"
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://ptememories.com'
 
 export const metadata = {
@@ -84,6 +85,8 @@ export default function RootLayout({ children }) {
         <PageProgress />
         <Nav />
         <main>{children}</main>
+         <GoogleAnalytics gaId="G-Q8S79SCJPW" />
+        <Analytics />
       </body>
     </html>
   )

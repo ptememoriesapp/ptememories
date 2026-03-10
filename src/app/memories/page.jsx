@@ -32,8 +32,8 @@ export default function MemoriesPage() {
           </p>
           <div className={styles.statsRow}>
             {[
-              { n: '6', l: 'sample memories' },
-              { n: '5', l: 'countries' },
+              { n: '25', l: 'sample memories' },
+              { n: '14', l: 'countries' },
               { n: 'Feb–Mar 2026', l: 'exam dates' },
               { n: '100%', l: 'admin verified' },
             ].map(s => (
@@ -68,7 +68,7 @@ export default function MemoriesPage() {
           <div className={styles.banner}>
             <span className={styles.bannerIcon}>🔒</span>
             <span>
-              Viewing <strong>6 sample memories</strong>. Full platform launches soon with{' '}
+              Viewing <strong>25 sample memories</strong>. Full platform launches soon with{' '}
               <strong>1,200+ verified memories</strong> — searchable, filterable, always free.{' '}
               <Link href="/" className={styles.bannerLink}>Join the waitlist →</Link>
             </span>

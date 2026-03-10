@@ -1,0 +1,447 @@
+/* src/components/ShareCardModal.module.css */
+
+/* ── Overlay ── */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(10, 10, 20, 0.75);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  animation: fadeIn .2s ease;
+}
+@keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
+
+/* ── Modal shell ── */
+.modal {
+  background: white;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 780px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 32px 80px rgba(0,0,0,.35);
+  animation: slideUp .25s cubic-bezier(.16,1,.3,1);
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(24px) }
+  to   { opacity: 1; transform: translateY(0) }
+}
+
+/* ── Modal header ── */
+.modalHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 1.4rem 1.6rem 0;
+}
+.modalTitle { font-weight: 800; font-size: 1.05rem; color: #1A1A2E; }
+.modalSub { font-size: .75rem; color: #8A8A9A; margin-top: .18rem; }
+.closeBtn {
+  background: #F3F2EF;
+  border: none;
+  border-radius: 8px;
+  width: 30px; height: 30px;
+  font-size: .75rem;
+  cursor: pointer;
+  color: #8A8A9A;
+  transition: all .15s;
+  flex-shrink: 0;
+}
+.closeBtn:hover { background: #E8E8F0; color: #1A1A2E; }
+
+/* ── Type tabs ── */
+.typeTabs {
+  display: flex;
+  gap: .6rem;
+  padding: 1rem 1.6rem;
+  border-bottom: 1px solid #F0F0F5;
+}
+.typeTab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: .65rem;
+  padding: .7rem .9rem;
+  border: 1.5px solid #E8E8F0;
+  border-radius: 12px;
+  background: white;
+  cursor: pointer;
+  transition: all .15s;
+  text-align: left;
+}
+.typeTab:hover { border-color: #C7D2FE; background: #F8F7FF; }
+.typeTabOn { border-color: #4F46E5 !important; background: #EEF2FF !important; }
+.typeTabDisabled { opacity: .4; cursor: not-allowed; }
+.typeTabIcon { font-size: 1.3rem; flex-shrink: 0; }
+.typeTabName { font-weight: 700; font-size: .82rem; color: #1A1A2E; }
+.typeTabDesc { font-size: .68rem; color: #8A8A9A; margin-top: .08rem; }
+
+/* ── Modal body ── */
+.modalBody {
+  display: grid;
+  grid-template-columns: 1fr 240px;
+  gap: 1.5rem;
+  padding: 1.2rem 1.6rem 1.6rem;
+}
+
+/* ── Preview ── */
+.previewCol {}
+.previewLabel {
+  font-size: .65rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #8A8A9A;
+  margin-bottom: .65rem;
+}
+.previewStage {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  background: #0F0F1A;
+  border-radius: 14px;
+  padding: 1.5rem;
+  min-height: 200px;
+}
+
+/* ── Controls ── */
+.controlCol {
+  display: flex;
+  flex-direction: column;
+  gap: .9rem;
+}
+
+/* ── Question picker ── */
+.picker {}
+.pickerLabel {
+  font-size: .72rem;
+  font-weight: 700;
+  color: #1A1A2E;
+  margin-bottom: .5rem;
+}
+.pickerList {
+  display: flex;
+  flex-direction: column;
+  gap: .35rem;
+  max-height: 240px;
+  overflow-y: auto;
+}
+.pickerItem {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .45rem .65rem;
+  border: 1.5px solid #E8E8F0;
+  border-radius: 9px;
+  background: white;
+  cursor: pointer;
+  transition: all .15s;
+  text-align: left;
+}
+.pickerItem:hover { background: #F8F7FF; border-color: #C7D2FE; }
+.pickerItemOn { border-color: #4F46E5; background: #EEF2FF; }
+.pickerIcon {
+  width: 22px; height: 22px;
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .75rem; flex-shrink: 0;
+}
+.pickerText {
+  font-size: .73rem;
+  font-weight: 600;
+  color: #1A1A2E;
+  display: flex;
+  align-items: center;
+  gap: .35rem;
+  flex: 1;
+}
+.pickerWfdBadge {
+  font-size: .55rem;
+  font-weight: 800;
+  letter-spacing: .5px;
+  background: #F5F3FF;
+  color: #5B21B6;
+  border: 1px solid #DDD6FE;
+  padding: .08rem .35rem;
+  border-radius: 4px;
+}
+
+/* ── WFD info ── */
+.wfdInfo {
+  display: flex;
+  gap: .65rem;
+  background: #F5F3FF;
+  border: 1px solid #DDD6FE;
+  border-radius: 10px;
+  padding: .75rem;
+}
+.wfdInfoIcon { font-size: 1.2rem; flex-shrink: 0; }
+.wfdInfoText { font-size: .73rem; color: #5B21B6; line-height: 1.55; }
+
+/* ── Action buttons ── */
+.actionBtns { display: flex; flex-direction: column; gap: .4rem; }
+.actionBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .45rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: .78rem;
+  font-weight: 700;
+  padding: .6rem .9rem;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all .15s;
+}
+.actionDownload { background: #1A1A2E; color: white; }
+.actionDownload:hover { background: #2D2D3E; }
+.actionLoading { opacity: .7; cursor: wait; }
+.actionDone { background: #059669 !important; }
+.actionTg { background: #229ED9; color: white; }
+.actionTg:hover { background: #1A8FBF; }
+.actionWa { background: #25D366; color: white; }
+.actionWa:hover { background: #1DB954; }
+
+.spinner {
+  width: 12px; height: 12px;
+  border: 2px solid rgba(255,255,255,.3);
+  border-top-color: white;
+  border-radius: 50%;
+  display: inline-block;
+  animation: spin .7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg) } }
+
+.modalNote {
+  font-size: .65rem;
+  color: #8A8A9A;
+  line-height: 1.5;
+  text-align: center;
+  border-top: 1px solid #F0F0F5;
+  padding-top: .65rem;
+}
+
+/* ═══════════════════════════════════════
+   CARD A — Memory Snapshot
+═══════════════════════════════════════ */
+.cardA {
+  width: 320px;
+  background: #1A1A2E;
+  border-radius: 16px;
+  overflow: hidden;
+  font-family: 'DM Sans', -apple-system, sans-serif;
+}
+
+.cardATop {
+  padding: 1.1rem 1.3rem .9rem;
+  position: relative;
+}
+.cardAEyebrow {
+  font-size: .58rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.55);
+  margin-bottom: .35rem;
+}
+.cardAType {
+  font-size: .95rem;
+  font-weight: 800;
+  color: white;
+  margin-bottom: .4rem;
+}
+.cardABadge {
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+  border-radius: 20px;
+  padding: .18rem .6rem;
+  font-size: .62rem;
+  font-weight: 700;
+  color: white;
+}
+
+.cardABody { padding: 1rem 1.3rem; }
+.cardAContent {
+  font-size: .85rem;
+  color: rgba(255,255,255,.85);
+  line-height: 1.65;
+  border-left: 3px solid;
+  padding-left: .75rem;
+  margin-bottom: .85rem;
+}
+.cardAWfd {
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+  margin-bottom: .85rem;
+}
+.cardAWfdRow {
+  display: flex;
+  align-items: flex-start;
+  gap: .5rem;
+}
+.cardAWfdNum {
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .58rem; font-weight: 700;
+  flex-shrink: 0; margin-top: 2px;
+}
+.cardAWfdText {
+  font-size: .78rem;
+  color: rgba(255,255,255,.8);
+  line-height: 1.5;
+}
+.cardAMeta {
+  display: flex;
+  gap: .65rem;
+  font-size: .65rem;
+  color: rgba(255,255,255,.35);
+}
+
+.cardAFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .65rem 1.3rem;
+  border-top: 1px solid rgba(255,255,255,.07);
+  background: rgba(255,255,255,.02);
+}
+.cardABrand {
+  font-size: .65rem;
+  font-weight: 800;
+  color: rgba(255,255,255,.25);
+}
+.cardAFreq {
+  font-size: .62rem;
+  font-weight: 700;
+  padding: .15rem .5rem;
+  border-radius: 20px;
+}
+
+/* ═══════════════════════════════════════
+   CARD D — WFD Practice
+═══════════════════════════════════════ */
+.cardD {
+  width: 320px;
+  background: #0A0A1A;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(139,92,246,.2);
+  font-family: 'DM Sans', -apple-system, sans-serif;
+}
+
+.cardDHeader {
+  background: linear-gradient(135deg, #5B21B6, #8B5CF6);
+  padding: 1rem 1.3rem .85rem;
+  position: relative;
+  overflow: hidden;
+}
+.cardDWfdBg {
+  position: absolute;
+  right: -5px; top: -10px;
+  font-size: 4.5rem;
+  font-weight: 900;
+  color: rgba(255,255,255,.07);
+  font-family: monospace;
+  pointer-events: none;
+  line-height: 1;
+}
+.cardDEyebrow {
+  font-size: .57rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.5);
+  margin-bottom: .3rem;
+  position: relative;
+}
+.cardDTitle {
+  font-size: .9rem;
+  font-weight: 800;
+  color: white;
+  position: relative;
+}
+
+.cardDBody {
+  padding: .85rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+}
+.cardDRow {
+  display: flex;
+  align-items: flex-start;
+  gap: .55rem;
+  padding: .55rem .7rem;
+  background: rgba(139,92,246,.08);
+  border: 1px solid rgba(139,92,246,.18);
+  border-radius: 9px;
+}
+.cardDNum {
+  width: 19px; height: 19px;
+  border-radius: 50%;
+  background: rgba(139,92,246,.25);
+  border: 1.5px solid rgba(139,92,246,.45);
+  display: flex; align-items: center; justify-content: center;
+  font-size: .58rem; font-weight: 700;
+  color: #C4B5FD; flex-shrink: 0; margin-top: 1px;
+  font-family: monospace;
+}
+.cardDText {
+  font-size: .75rem;
+  color: rgba(255,255,255,.78);
+  line-height: 1.5;
+}
+.cardDTip {
+  font-size: .65rem;
+  color: rgba(255,255,255,.28);
+  padding: .45rem .7rem;
+  background: rgba(255,255,255,.03);
+  border: 1px dashed rgba(255,255,255,.08);
+  border-radius: 8px;
+  margin-top: .1rem;
+}
+
+.cardDFooter {
+  padding: .65rem 1.1rem;
+  border-top: 1px solid rgba(139,92,246,.12);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.cardDTags {
+  display: flex;
+  gap: .35rem;
+  flex-wrap: wrap;
+}
+.cardDTags span {
+  font-size: .58rem;
+  color: rgba(255,255,255,.3);
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.08);
+  padding: .1rem .4rem;
+  border-radius: 20px;
+}
+.cardDBrand {
+  font-size: .62rem;
+  font-weight: 800;
+  color: rgba(139,92,246,.45);
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .modal { border-radius: 16px 16px 0 0; max-height: 95vh; }
+  .overlay { align-items: flex-end; padding: 0; }
+  .modalBody { grid-template-columns: 1fr; }
+  .controlCol { order: -1; }
+  .previewStage { padding: 1rem; }
+  .cardA, .cardD { width: 100%; max-width: 320px; }
+}

@@ -115,6 +115,8 @@ function TimelineRow({ sectionKey, questions, preview, defaultOpen = false }) {
 }
 
 // ── Main MemoryCard ────────────────────────────────────
+import Link from 'next/link'
+
 export default function MemoryCard({ memory }) {
   const { name, date, location, centre, score, verified = true, sections, frequency, frequencyRange, priority } = memory
 
@@ -132,17 +134,21 @@ export default function MemoryCard({ memory }) {
   return (
     <article className={styles.card}>
 
-      {/* Header */}
+      {/* Header — clicking name/avatar goes to detail page */}
       <div className={styles.cardHeader}>
-        <div
-          className={styles.avatar}
-          style={{ background: memory.avatarGradient || 'linear-gradient(135deg,#4F46E5,#818CF8)' }}
-        >
-          {initials}
-        </div>
+        <Link href={`/memories/${memory.id}`} className={styles.avatarLink}>
+          <div
+            className={styles.avatar}
+            style={{ background: memory.avatarGradient || 'linear-gradient(135deg,#4F46E5,#818CF8)' }}
+          >
+            {initials}
+          </div>
+        </Link>
 
         <div className={styles.info}>
-          <div className={styles.name}>{name}</div>
+          <Link href={`/memories/${memory.id}`} className={styles.nameLink}>
+            <div className={styles.name}>{name}</div>
+          </Link>
           <div className={styles.meta}>
             <span>📅 {date}</span>
             <span>📍 {location}</span>
@@ -180,9 +186,9 @@ export default function MemoryCard({ memory }) {
           {frequencyRange && <span className={styles.freqRange}>· {frequencyRange}</span>}
           <span className={`${styles.priorityPill} ${pri.cls}`}>{pri.label}</span>
         </div>
-        <button className={styles.shareBtn} onClick={() => navigator.clipboard?.writeText(window.location.href)}>
-          ↗ Share
-        </button>
+        <Link href={`/memories/${memory.id}`} className={styles.viewBtn}>
+          View full →
+        </Link>
       </div>
 
     </article>

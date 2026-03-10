@@ -320,6 +320,30 @@
 }
 .MemoryCard_shareBtn___jHpm:hover { border-color: var(--indigo); color: var(--indigo); }
 
+/* ── Detail page link styles ── */
+.MemoryCard_avatarLink__6fo4T { display: block; text-decoration: none; flex-shrink: 0; }
+.MemoryCard_avatarLink__6fo4T:hover .MemoryCard_avatar__aq86n { opacity: .85; transform: scale(1.04); }
+.MemoryCard_avatar__aq86n { transition: opacity .15s, transform .15s; }
+
+.MemoryCard_nameLink__S6EB5 { text-decoration: none; }
+.MemoryCard_nameLink__S6EB5:hover .MemoryCard_name__uLvlg { color: var(--indigo); }
+.MemoryCard_name__uLvlg { transition: color .15s; }
+
+.MemoryCard_viewBtn__sc7nn {
+  font-size: .72rem;
+  font-weight: 700;
+  color: var(--indigo);
+  text-decoration: none;
+  background: var(--indigo-bg);
+  border: 1px solid rgba(79,70,229,.2);
+  padding: .28rem .75rem;
+  border-radius: 8px;
+  transition: all .15s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.MemoryCard_viewBtn__sc7nn:hover { background: var(--indigo); color: white; }
+
 /*!**********************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./src/components/WaitlistForm.module.css ***!
   \**********************************************************************************************************************************************************************************************************************************************************************************/
@@ -465,6 +489,49 @@
     padding: 0.7rem;
   }
 }
+
+/* ── SHARE ROW (post-signup) ── */
+.WaitlistForm_shareRow__VBApS {
+  display: flex;
+  align-items: center;
+  gap: .55rem;
+  margin-top: .75rem;
+  flex-wrap: wrap;
+}
+
+.WaitlistForm_shareRowDark__ZqUeM .WaitlistForm_shareLabel__TOLXk { color: rgba(255,255,255,.4); }
+
+.WaitlistForm_shareLabel__TOLXk {
+  font-size: .72rem;
+  font-weight: 600;
+  color: var(--ink-muted);
+  white-space: nowrap;
+}
+
+.WaitlistForm_shareBtn__njeV3 {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  font-size: .72rem;
+  font-weight: 700;
+  padding: .32rem .75rem;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all .15s;
+  white-space: nowrap;
+}
+
+.WaitlistForm_shareTg__pEfqe {
+  background: #229ED9;
+  color: white;
+}
+.WaitlistForm_shareTg__pEfqe:hover { background: #1A8FBF; }
+
+.WaitlistForm_shareWa__fenOR {
+  background: #25D366;
+  color: white;
+}
+.WaitlistForm_shareWa__fenOR:hover { background: #1DB954; }
 
 /*!****************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./src/app/memories/page.module.css ***!

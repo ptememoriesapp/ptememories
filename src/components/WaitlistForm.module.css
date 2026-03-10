@@ -140,3 +140,46 @@
     padding: 0.7rem;
   }
 }
+
+/* ── SHARE ROW (post-signup) ── */
+.shareRow {
+  display: flex;
+  align-items: center;
+  gap: .55rem;
+  margin-top: .75rem;
+  flex-wrap: wrap;
+}
+
+.shareRowDark .shareLabel { color: rgba(255,255,255,.4); }
+
+.shareLabel {
+  font-size: .72rem;
+  font-weight: 600;
+  color: var(--ink-muted);
+  white-space: nowrap;
+}
+
+.shareBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  font-size: .72rem;
+  font-weight: 700;
+  padding: .32rem .75rem;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all .15s;
+  white-space: nowrap;
+}
+
+.shareTg {
+  background: #229ED9;
+  color: white;
+}
+.shareTg:hover { background: #1A8FBF; }
+
+.shareWa {
+  background: #25D366;
+  color: white;
+}
+.shareWa:hover { background: #1DB954; }

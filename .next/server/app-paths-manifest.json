@@ -1,4 +1,4 @@
 {
-  "/sitemap.xml/[[...__metadata_id__]]/route": "app/sitemap.xml/[[...__metadata_id__]]/route.js",
-  "/page": "app/page.js"
+  "/memories/[id]/page": "app/memories/[id]/page.js",
+  "/memories/page": "app/memories/page.js"
 }
