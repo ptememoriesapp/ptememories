@@ -2,6 +2,7 @@
 'use client'
 import { useState } from 'react'
 import styles from './WaitlistForm.module.css'
+import { getSiteUrl } from '../lib/siteUrl'
 
 // Fetch country accurately from ipapi.co (free, no key needed, ~100k/day)
 async function getCountry() {
@@ -81,7 +82,7 @@ export default function WaitlistForm({
         <div className={`${styles.shareRow} ${theme === 'dark' ? styles.shareRowDark : ''}`}>
           <span className={styles.shareLabel}>📣 Help others find it:</span>
           <a
-            href="https://t.me/share/url?url=https%3A%2F%2Fptememories.com&text=Found%20this%20free%20site%20with%20verified%20PTE%20exam%20memories%20%F0%9F%8E%AF%20Way%20better%20than%20scrolling%20Telegram%20groups!"
+            href={`https://t.me/share/url?url=${encodeURIComponent(getSiteUrl())}&text=${encodeURIComponent('Found this free site with verified PTE exam memories 🎯 Way better than scrolling Telegram groups!')}`}
             target="_blank"
             rel="noopener noreferrer"
             className={`${styles.shareBtn} ${styles.shareTg}`}
@@ -90,7 +91,7 @@ export default function WaitlistForm({
             Telegram
           </a>
           <a
-            href="https://wa.me/?text=Found%20this%20free%20site%20with%20verified%20PTE%20exam%20memories%20%F0%9F%8E%AF%20Way%20better%20than%20Telegram%20chaos!%20https%3A%2F%2Fptememories.com"
+            href={`https://wa.me/?text=${encodeURIComponent('Found this free site with verified PTE exam memories 🎯 Way better than Telegram chaos! ' + getSiteUrl())}`}
             target="_blank"
             rel="noopener noreferrer"
             className={`${styles.shareBtn} ${styles.shareWa}`}
@@ -113,7 +114,7 @@ export default function WaitlistForm({
         <div className={`${styles.shareRow} ${theme === 'dark' ? styles.shareRowDark : ''}`}>
           <span className={styles.shareLabel}>📣 Share it with your group:</span>
           <a
-            href="https://t.me/share/url?url=https%3A%2F%2Fptememories.com&text=Found%20this%20free%20site%20with%20verified%20PTE%20exam%20memories%20%F0%9F%8E%AF%20Way%20better%20than%20scrolling%20Telegram%20groups!"
+            href={`https://t.me/share/url?url=${encodeURIComponent(getSiteUrl())}&text=${encodeURIComponent('Found this free site with verified PTE exam memories 🎯 Way better than scrolling Telegram groups!')}`}
             target="_blank"
             rel="noopener noreferrer"
             className={`${styles.shareBtn} ${styles.shareTg}`}
@@ -122,7 +123,7 @@ export default function WaitlistForm({
             Telegram
           </a>
           <a
-            href="https://wa.me/?text=Found%20this%20free%20site%20with%20verified%20PTE%20exam%20memories%20%F0%9F%8E%AF%20Way%20better%20than%20Telegram%20chaos!%20https%3A%2F%2Fptememories.com"
+            href={`https://wa.me/?text=${encodeURIComponent('Found this free site with verified PTE exam memories 🎯 Way better than Telegram chaos! ' + getSiteUrl())}`}
             target="_blank"
             rel="noopener noreferrer"
             className={`${styles.shareBtn} ${styles.shareWa}`}

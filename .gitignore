@@ -3,3 +3,5 @@ node_modules
 gh key
 .env.local
 GOOGLE_SHEETS_SETUP.md
+.next
+.next/*

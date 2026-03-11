@@ -2,6 +2,7 @@
 // src/components/ShareCardModal.jsx
 import { useState, useRef, useEffect } from 'react'
 import styles from './ShareCardModal.module.css'
+import { getSiteUrl } from '../lib/siteUrl'
 
 const SECTION_META = {
   sp: { icon: '🎤', label: 'Speaking',  color: '#4F46E5', bg: '#EEF2FF' },
@@ -13,13 +14,8 @@ const SECTION_META = {
 // ── Card A: Memory Snapshot ────────────────────────────
 function CardSnapshot({ memory, question, sectionKey }) {
   const meta = SECTION_META[sectionKey]
-  const content = question.sentences
-    ? question.sentences.map((s, i) => `${i + 1}. ${s}`).join('\n')
-    : question.content
-
   return (
     <div className={styles.cardA} data-card>
-      {/* Top gradient bar */}
       <div className={styles.cardATop} style={{ background: `linear-gradient(135deg, ${meta.color}, ${meta.color}99)` }}>
         <div className={styles.cardAEyebrow}>PTE Exam Memory</div>
         <div className={styles.cardAType}>{question.type}</div>
@@ -27,8 +23,6 @@ function CardSnapshot({ memory, question, sectionKey }) {
           {meta.icon} {meta.label}
         </div>
       </div>
-
-      {/* Body */}
       <div className={styles.cardABody}>
         {question.sentences ? (
           <div className={styles.cardAWfd}>
@@ -41,19 +35,16 @@ function CardSnapshot({ memory, question, sectionKey }) {
           </div>
         ) : (
           <div className={styles.cardAContent} style={{ borderLeftColor: meta.color }}>
-            {content}
+            {question.content}
           </div>
         )}
-
         <div className={styles.cardAMeta}>
           <span>📍 {memory.location}</span>
           <span>📅 {memory.date}</span>
         </div>
       </div>
-
-      {/* Footer */}
       <div className={styles.cardAFooter}>
-        <div className={styles.cardABrand}>ptememories.com</div>
+        <div className={styles.cardABrand}>{getSiteUrl().replace('https://', '').replace('http://', '')}</div>
         <div className={styles.cardAFreq} style={{ color: '#FCD34D', background: 'rgba(252,211,77,.12)', border: '1px solid rgba(252,211,77,.2)' }}>
           🔁 {memory.frequency} reports
         </div>
@@ -64,21 +55,20 @@ function CardSnapshot({ memory, question, sectionKey }) {
 
 // ── Card D: WFD Practice ───────────────────────────────
 function CardWFD({ memory, section }) {
-  const wfdQuestions = section.questions.filter(q => q.sentences && q.sentences.length > 0)
-  const allSentences = wfdQuestions.flatMap(q => q.sentences).slice(0, 5)
+  const allSentences = section.questions
+    .filter(q => q.sentences?.length > 0)
+    .flatMap(q => q.sentences)
+    .slice(0, 5)
 
   if (!allSentences.length) return null
 
   return (
     <div className={styles.cardD} data-card>
-      {/* Header */}
       <div className={styles.cardDHeader}>
         <div className={styles.cardDWfdBg}>WFD</div>
         <div className={styles.cardDEyebrow}>PTE Memories · Write from Dictation</div>
         <div className={styles.cardDTitle}>Practise these sentences 🎧</div>
       </div>
-
-      {/* Sentences */}
       <div className={styles.cardDBody}>
         {allSentences.map((s, i) => (
           <div key={i} className={styles.cardDRow}>
@@ -90,35 +80,28 @@ function CardWFD({ memory, section }) {
           💡 Reported by {memory.frequency} candidates in {memory.frequencyRange}. High chance of repeat.
         </div>
       </div>
-
-      {/* Footer */}
       <div className={styles.cardDFooter}>
         <div className={styles.cardDTags}>
           <span>📍 {memory.location}</span>
           <span>📅 {memory.date}</span>
           <span>🔁 {memory.frequency} reports</span>
         </div>
-        <div className={styles.cardDBrand}>ptememories.com</div>
+        <div className={styles.cardDBrand}>{getSiteUrl().replace('https://', '').replace('http://', '')}</div>
       </div>
     </div>
   )
 }
 
-// ── Question selector (for Card A) ────────────────────
+// ── Question picker ────────────────────────────────────
 function QuestionPicker({ memory, selected, onSelect }) {
   return (
     <div className={styles.picker}>
       <div className={styles.pickerLabel}>Pick a question to share:</div>
       <div className={styles.pickerList}>
         {memory.sections.flatMap(sec =>
-          sec.questions.map((q, qi) => ({
-            sectionKey: sec.key,
-            question: q,
-            id: `${sec.key}-${qi}`,
-          }))
+          sec.questions.map((q, qi) => ({ sectionKey: sec.key, question: q, id: `${sec.key}-${qi}` }))
         ).map(item => {
           const meta = SECTION_META[item.sectionKey]
-          const isWfd = !!item.question.sentences
           return (
             <button
               key={item.id}
@@ -129,7 +112,7 @@ function QuestionPicker({ memory, selected, onSelect }) {
               <span className={styles.pickerIcon} style={{ background: meta.bg }}>{meta.icon}</span>
               <span className={styles.pickerText}>
                 {item.question.type}
-                {isWfd && <span className={styles.pickerWfdBadge}>WFD</span>}
+                {item.question.sentences && <span className={styles.pickerWfdBadge}>WFD</span>}
               </span>
             </button>
           )
@@ -147,9 +130,16 @@ export default function ShareCardModal({ memory, onClose }) {
   const [selectedSec, setSelectedSec] = useState(null)
   const [downloading, setDownloading] = useState(false)
   const [downloaded, setDownloaded] = useState(false)
+  const [pngDataUrl, setPngDataUrl] = useState(null)
   const cardRef = useRef(null)
 
-  // Auto-select first question on mount
+  const siteUrl = getSiteUrl()
+  const pageUrl = `${siteUrl}/memories/${memory.id}`
+
+  const wfdSection = memory.sections.find(s => s.questions.some(q => q.sentences?.length > 0))
+  const hasWfd = !!wfdSection
+
+  // Auto-select first question
   useEffect(() => {
     const firstSec = memory.sections[0]
     if (firstSec?.questions[0]) {
@@ -159,20 +149,17 @@ export default function ShareCardModal({ memory, onClose }) {
     }
   }, [memory])
 
-  // Find WFD section for Card D
-  const wfdSection = memory.sections.find(s => s.questions.some(q => q.sentences?.length > 0))
-  const hasWfd = !!wfdSection
+  // Close on Escape
+  useEffect(() => {
+    const handler = e => e.key === 'Escape' && onClose()
+    window.addEventListener('keydown', handler)
+    return () => window.removeEventListener('keydown', handler)
+  }, [onClose])
 
-  const siteUrl = typeof window !== 'undefined'
-    ? window.location.origin
-    : 'https://ptememories.com'
-  const pageUrl = `${siteUrl}/memories/${memory.id}`
-
-  async function downloadPNG() {
-    if (!cardRef.current) return
-    setDownloading(true)
+  // Generate PNG from card
+  async function generatePNG() {
+    if (!cardRef.current) return null
     try {
-      // Dynamically import html2canvas only when needed
       const html2canvas = (await import('html2canvas')).default
       const canvas = await html2canvas(cardRef.current, {
         scale: 2,
@@ -180,36 +167,62 @@ export default function ShareCardModal({ memory, onClose }) {
         backgroundColor: null,
         logging: false,
       })
+      return canvas.toDataURL('image/png')
+    } catch (err) {
+      console.error('PNG generation failed:', err)
+      return null
+    }
+  }
+
+  async function downloadPNG() {
+    setDownloading(true)
+    const dataUrl = await generatePNG()
+    if (dataUrl) {
       const link = document.createElement('a')
       link.download = `pte-memory-${memory.id}-${cardType.toLowerCase()}.png`
-      link.href = canvas.toDataURL('image/png')
+      link.href = dataUrl
       link.click()
+      setPngDataUrl(dataUrl)
       setDownloaded(true)
       setTimeout(() => setDownloaded(false), 2500)
-    } catch (err) {
-      console.error('Download failed:', err)
     }
     setDownloading(false)
   }
 
-  const shareText = cardType === 'A' && selectedQ
-    ? `PTE ${selectedQ.type} question from ${memory.location} (${memory.date}) 🎯 Verified memory on PTE Memories — free & organised:`
-    : `PTE Write from Dictation sentences from ${memory.location} (${memory.date}) 🎧 Practise these before your exam — from PTE Memories:`
+  // Build share text based on card type
+  function getShareText() {
+    if (cardType === 'D' && wfdSection) {
+      const sentences = wfdSection.questions
+        .filter(q => q.sentences?.length)
+        .flatMap(q => q.sentences)
+        .slice(0, 3)
+        .map((s, i) => `${i + 1}. ${s}`)
+        .join('\n')
+      return `🎧 PTE Write from Dictation — practice these sentences!\n\n${sentences}\n\n📍 ${memory.location} · 📅 ${memory.date} · 🔁 ${memory.frequency} reports\n\nMore verified PTE memories 👇\n${pageUrl}`
+    }
+    // Card A
+    const qText = selectedQ?.sentences
+      ? selectedQ.sentences.slice(0, 2).map((s, i) => `${i + 1}. ${s}`).join('\n')
+      : selectedQ?.content || ''
+    return `🎯 PTE Exam Memory — ${selectedQ?.type || ''}\n\n${qText}\n\n📍 ${memory.location} · 📅 ${memory.date} · 🔁 ${memory.frequency} reports\n\nFull verified memory 👇\n${pageUrl}`
+  }
 
+  const shareText = getShareText()
+  // Telegram share: text only (image needs manual attach, so we provide rich text + link)
   const tgUrl = `https://t.me/share/url?url=${encodeURIComponent(pageUrl)}&text=${encodeURIComponent(shareText)}`
-  const waUrl = `https://wa.me/?text=${encodeURIComponent(shareText + ' ' + pageUrl)}`
+  const waUrl = `https://wa.me/?text=${encodeURIComponent(shareText)}`
 
   return (
     <div className={styles.overlay} onClick={e => e.target === e.currentTarget && onClose()}>
       <div className={styles.modal}>
 
-        {/* Header */}
+        {/* Sticky header with close always visible */}
         <div className={styles.modalHeader}>
-          <div>
+          <div className={styles.modalHeaderLeft}>
             <div className={styles.modalTitle}>🎨 Share Card</div>
             <div className={styles.modalSub}>Generate a shareable image for Telegram or WhatsApp</div>
           </div>
-          <button className={styles.closeBtn} onClick={onClose}>✕</button>
+          <button className={styles.closeBtn} onClick={onClose} aria-label="Close">✕</button>
         </div>
 
         {/* Card type tabs */}
@@ -227,7 +240,6 @@ export default function ShareCardModal({ memory, onClose }) {
           <button
             className={`${styles.typeTab} ${cardType === 'D' ? styles.typeTabOn : ''} ${!hasWfd ? styles.typeTabDisabled : ''}`}
             onClick={() => hasWfd && setCardType('D')}
-            title={!hasWfd ? 'No WFD questions in this memory' : ''}
           >
             <span className={styles.typeTabIcon}>🎧</span>
             <div>
@@ -237,7 +249,7 @@ export default function ShareCardModal({ memory, onClose }) {
           </button>
         </div>
 
-        {/* Main area */}
+        {/* Scrollable body */}
         <div className={styles.modalBody}>
 
           {/* Left: card preview */}
@@ -268,8 +280,7 @@ export default function ShareCardModal({ memory, onClose }) {
               <div className={styles.wfdInfo}>
                 <div className={styles.wfdInfoIcon}>🎧</div>
                 <div className={styles.wfdInfoText}>
-                  Shows all Write from Dictation sentences from this memory as a practice card.
-                  People pin these in study groups!
+                  Shows all Write from Dictation sentences as a practice card. People pin these in study groups!
                 </div>
               </div>
             )}
@@ -284,7 +295,7 @@ export default function ShareCardModal({ memory, onClose }) {
                 {downloading ? (
                   <><span className={styles.spinner} /> Generating...</>
                 ) : downloaded ? (
-                  <>✓ Downloaded!</>
+                  <>✓ Downloaded! Now share it</>
                 ) : (
                   <><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download PNG</>
                 )}
@@ -302,7 +313,7 @@ export default function ShareCardModal({ memory, onClose }) {
             </div>
 
             <p className={styles.modalNote}>
-              Download the PNG first, then share it in your Telegram group for best results.
+              💡 Download the PNG → then attach it manually in Telegram/WhatsApp with the link for best reach.
             </p>
           </div>
         </div>

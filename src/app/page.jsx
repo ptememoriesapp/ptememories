@@ -3,6 +3,7 @@ import Link from 'next/link'
 import WaitlistForm from '../components/WaitlistForm'
 import { MEMORIES } from '../lib/memories'
 import styles from './page.module.css'
+import { getSiteUrl } from '../lib/siteUrl'
 import Footer from '../components/Footer'
 
 const TICKER_ITEMS = [
@@ -61,9 +62,9 @@ export default function HomePage() {
             <div className={styles.heroStats}>
               {[
                 { num: '1.2k+', label: 'Verified memories' },
-                { num: '58+', label: 'Countries' },
-                { num: '24h', label: 'Review time' },
-                { num: '100%', label: 'Always free' },
+                { num: '58+',   label: 'Countries' },
+                { num: '24h',   label: 'Review time' },
+                { num: '100%',  label: 'Always free' },
               ].map(s => (
                 <div key={s.label} className={styles.hsStat}>
                   <div className={styles.hsNum}>{s.num}</div>
@@ -398,8 +399,8 @@ export default function HomePage() {
           <div className={styles.sectionCards}>
             {[
               { icon: '🎤', label: 'Speaking', color: '#4F46E5', bg: '#EEF2FF', border: '#C7D2FE', types: ['Read Aloud', 'Retell Lecture', 'Describe Image', 'Short Answer'], count: '340+' },
-              { icon: '✍️', label: 'Writing', color: '#B45309', bg: '#FFFBEB', border: '#FDE68A', types: ['Write Essay', 'Summarize Text'], count: '210+' },
-              { icon: '📖', label: 'Reading', color: '#065F46', bg: '#ECFDF5', border: '#A7F3D0', types: ['FIB', 'R&W FIB', 'Reorder Paragraphs', 'MCQ'], count: '290+' },
+              { icon: '✍️', label: 'Writing',  color: '#B45309', bg: '#FFFBEB', border: '#FDE68A', types: ['Write Essay', 'Summarize Text'], count: '210+' },
+              { icon: '📖', label: 'Reading',  color: '#065F46', bg: '#ECFDF5', border: '#A7F3D0', types: ['FIB', 'R&W FIB', 'Reorder Paragraphs', 'MCQ'], count: '290+' },
               { icon: '🎧', label: 'Listening', color: '#5B21B6', bg: '#F5F3FF', border: '#DDD6FE', types: ['Write from Dictation', 'Summarize Spoken', 'HCS', 'FIB'], count: '360+' },
             ].map(s => (
               <Link href="/memories" key={s.label} className={styles.sCard} style={{ '--sc': s.color, '--sbg': s.bg, '--sborder': s.border }}>
@@ -488,6 +489,7 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* BOTTOM CTA */}
       <section className={styles.ctaSection}>
         <h2 className={styles.ctaTitle}>Be first to know<br />when we <em>launch.</em></h2>
         <p className={styles.ctaSub}>Join students from India, Australia, Canada, UK and 50+ countries.</p>
@@ -510,21 +512,21 @@ export default function HomePage() {
           </div>
           <div className={styles.shareBtns}>
             <a
-              href="https://t.me/share/url?url=https%3A%2F%2Fptememories.com&text=Found%20this%20free%20site%20that%20has%20verified%20PTE%20exam%20memories%20organised%20by%20section%20and%20question%20type.%20Way%20better%20than%20scrolling%20Telegram%20groups%20%F0%9F%99%8C"
+              href={`https://t.me/share/url?url=${encodeURIComponent(getSiteUrl())}&text=${encodeURIComponent('Found this free site with verified PTE exam memories organised by section and question type. Way better than scrolling Telegram groups 🙌')}`}
               target="_blank"
               rel="noopener noreferrer"
               className={`${styles.shareBtn} ${styles.shareTelegram}`}
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.19 13.448l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.958.111z" /></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.19 13.448l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.958.111z"/></svg>
               Share on Telegram
             </a>
             <a
-              href="https://wa.me/?text=Found%20this%20free%20site%20with%20verified%20PTE%20exam%20memories%20organised%20by%20section%20%F0%9F%8E%AF%20Way%20better%20than%20Telegram%20chaos!%20https%3A%2F%2Fptememories.com"
+              href={`https://wa.me/?text=${encodeURIComponent('Found this free site with verified PTE exam memories organised by section 🎯 Way better than Telegram chaos! ' + getSiteUrl())}`}
               target="_blank"
               rel="noopener noreferrer"
               className={`${styles.shareBtn} ${styles.shareWhatsapp}`}
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" /></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
               Share on WhatsApp
             </a>
           </div>
@@ -532,7 +534,6 @@ export default function HomePage() {
       </section>
 
       <Footer />
-
     </>
   )
 }

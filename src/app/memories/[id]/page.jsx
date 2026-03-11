@@ -6,6 +6,7 @@ import { useParams } from 'next/navigation'
 import { MEMORIES } from '../../../lib/memories'
 import Footer from '../../../components/Footer'
 import ShareCardModal from '../../../components/ShareCardModal'
+import { getSiteUrl } from '../../../lib/siteUrl'
 import styles from './page.module.css'
 
 const SECTION_META = {
@@ -144,8 +145,7 @@ function FrequencyPanel({ memory }) {
 // ── Share panel ────────────────────────────────────────
 function SharePanel({ memory }) {
   const [copied, setCopied] = useState(false)
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://ptememories.com'
-  const pageUrl = `${siteUrl}/memories/${memory.id}`
+  const pageUrl = `${getSiteUrl()}/memories/${memory.id}`
   const shareText = `PTE exam memory from ${memory.location} (${memory.date}) 🎯 — ${memory.sections.map(s => SECTION_META[s.key]?.label).join(', ')}. Check it on PTE Memories (free, verified):`
 
   function copyLink() {

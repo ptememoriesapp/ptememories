@@ -2,9 +2,12 @@
 import '../styles/globals.css'
 import Nav from '../components/Nav'
 import PageProgress from '../components/PageProgress'
+import { Analytics } from '@vercel/analytics/react'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import { GoogleAnalytics } from '@next/third-parties/google'
-import { Analytics } from "@vercel/analytics/next"
+
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://ptememories.com'
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID // e.g. G-XXXXXXXXXX
 
 export const metadata = {
   metadataBase: new URL(siteUrl),
@@ -63,6 +66,7 @@ export default function RootLayout({ children }) {
           href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap"
           rel="stylesheet"
         />
+        {/* JSON-LD */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -85,8 +89,11 @@ export default function RootLayout({ children }) {
         <PageProgress />
         <Nav />
         <main>{children}</main>
-         <GoogleAnalytics gaId="G-Q8S79SCJPW" />
+        {/* Vercel Analytics + Speed Insights */}
         <Analytics />
+        <SpeedInsights />
+        {/* Google Analytics */}
+        {GA_ID && <GoogleAnalytics gaId={GA_ID} />}
       </body>
     </html>
   )

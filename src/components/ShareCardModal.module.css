@@ -22,7 +22,9 @@
   width: 100%;
   max-width: 780px;
   max-height: 90vh;
-  overflow-y: auto;
+  overflow: hidden; /* header sticky needs this */
+  display: flex;
+  flex-direction: column;
   box-shadow: 0 32px 80px rgba(0,0,0,.35);
   animation: slideUp .25s cubic-bezier(.16,1,.3,1);
 }
@@ -31,34 +33,42 @@
   to   { opacity: 1; transform: translateY(0) }
 }
 
-/* ── Modal header ── */
+/* ── Modal header — STICKY, always visible ── */
 .modalHeader {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
-  padding: 1.4rem 1.6rem 0;
+  padding: 1.1rem 1.4rem;
+  border-bottom: 1px solid #F0F0F5;
+  background: white;
+  flex-shrink: 0; /* never shrink — always visible */
+  gap: 1rem;
 }
-.modalTitle { font-weight: 800; font-size: 1.05rem; color: #1A1A2E; }
-.modalSub { font-size: .75rem; color: #8A8A9A; margin-top: .18rem; }
+.modalHeaderLeft { flex: 1; min-width: 0; }
+.modalTitle { font-weight: 800; font-size: 1rem; color: #1A1A2E; white-space: nowrap; }
+.modalSub { font-size: .72rem; color: #8A8A9A; margin-top: .15rem; }
 .closeBtn {
   background: #F3F2EF;
   border: none;
   border-radius: 8px;
-  width: 30px; height: 30px;
-  font-size: .75rem;
+  width: 32px; height: 32px;
+  font-size: .8rem;
   cursor: pointer;
   color: #8A8A9A;
   transition: all .15s;
-  flex-shrink: 0;
+  flex-shrink: 0; /* never shrink */
+  display: flex; align-items: center; justify-content: center;
 }
 .closeBtn:hover { background: #E8E8F0; color: #1A1A2E; }
 
-/* ── Type tabs ── */
+/* ── Type tabs — also sticky ── */
 .typeTabs {
   display: flex;
   gap: .6rem;
-  padding: 1rem 1.6rem;
+  padding: .9rem 1.4rem;
   border-bottom: 1px solid #F0F0F5;
+  background: white;
+  flex-shrink: 0;
 }
 .typeTab {
   flex: 1;
@@ -80,12 +90,14 @@
 .typeTabName { font-weight: 700; font-size: .82rem; color: #1A1A2E; }
 .typeTabDesc { font-size: .68rem; color: #8A8A9A; margin-top: .08rem; }
 
-/* ── Modal body ── */
+/* ── Modal body — scrollable ── */
 .modalBody {
   display: grid;
   grid-template-columns: 1fr 240px;
   gap: 1.5rem;
-  padding: 1.2rem 1.6rem 1.6rem;
+  padding: 1.2rem 1.4rem 1.6rem;
+  overflow-y: auto; /* body scrolls, header stays */
+  flex: 1;
 }
 
 /* ── Preview ── */
@@ -438,10 +450,35 @@
 
 /* ── Responsive ── */
 @media (max-width: 640px) {
-  .modal { border-radius: 16px 16px 0 0; max-height: 95vh; }
-  .overlay { align-items: flex-end; padding: 0; }
-  .modalBody { grid-template-columns: 1fr; }
-  .controlCol { order: -1; }
-  .previewStage { padding: 1rem; }
-  .cardA, .cardD { width: 100%; max-width: 320px; }
+  .overlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+  .modal {
+    border-radius: 20px 20px 0 0;
+    max-height: 92vh;
+    /* Push above home indicator on iOS */
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  .modalHeader {
+    padding: 1rem 1.1rem;
+  }
+  .modalTitle { font-size: .9rem; }
+  .modalSub { display: none; } /* save space on mobile */
+  .typeTabs { padding: .7rem 1.1rem; gap: .4rem; }
+  .typeTab { padding: .55rem .7rem; }
+  .typeTabDesc { display: none; }
+  .modalBody {
+    grid-template-columns: 1fr;
+    padding: 1rem 1.1rem 1.4rem;
+    gap: 1rem;
+  }
+  .controlCol { order: -1; } /* controls first on mobile */
+  .previewStage {
+    padding: 1rem;
+    justify-content: center;
+  }
+  .cardA, .cardD { width: 100%; max-width: 300px; }
+  .pickerList { max-height: 180px; }
+  .actionBtns { gap: .35rem; }
 }
