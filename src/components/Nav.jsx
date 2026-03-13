@@ -12,6 +12,7 @@ export default function Nav() {
   const links = [
     { href: '/', label: 'Home' },
     { href: '/memories', label: 'Memories' },
+    { href: '/resources', label: 'Resources' },
     { href: '/how-it-works', label: 'How It Works' },
     { href: '/about', label: 'About' },
   ]
