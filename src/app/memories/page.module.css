@@ -80,3 +80,31 @@
   margin-bottom: 0.75rem;
   position: relative;
 }
+
+.loadingPill {
+  font-size: .68rem;
+  color: var(--ink-muted);
+  background: var(--off);
+  border: 1px solid var(--border);
+  padding: .2rem .65rem;
+  border-radius: 20px;
+  margin-left: .75rem;
+  animation: pulse 1.5s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+.sourceLegend {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  font-size: .72rem;
+  color: var(--ink-muted);
+  margin-bottom: .75rem;
+  padding: .5rem .75rem;
+  background: var(--off);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+.legendReal { display: flex; align-items: center; gap: .35rem; font-weight: 600; }
+.legendSample { display: flex; align-items: center; gap: .35rem; }
+.legendDot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }

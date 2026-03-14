@@ -9,6 +9,19 @@ import ShareCardModal from '../../../components/ShareCardModal'
 import { getSiteUrl } from '../../../lib/siteUrl'
 import styles from './page.module.css'
 
+// Shared client cache — same request reused across pages
+let _promise = null, _cache = null, _cacheTime = 0
+const TTL = 5 * 60 * 1000
+async function loadMemories() {
+  if (_cache && Date.now() - _cacheTime < TTL) return _cache
+  if (!_promise) {
+    _promise = fetch('/api/memories').then(r => r.json())
+      .then(d => { _cache = d; _cacheTime = Date.now(); _promise = null; return d })
+      .catch(() => { _promise = null; return null })
+  }
+  return _promise
+}
+
 const SECTION_META = {
   sp: { icon: '🎤', label: 'Speaking',  color: '#3B82F6', bg: '#EFF6FF', dark: '#1D4ED8', border: '#BFDBFE' },
   wr: { icon: '✍️', label: 'Writing',   color: '#F59E0B', bg: '#FFFBEB', dark: '#B45309', border: '#FDE68A' },
@@ -193,9 +206,9 @@ function SharePanel({ memory }) {
 }
 
 // ── Similar memories ───────────────────────────────────
-function SimilarMemories({ current }) {
+function SimilarMemories({ current, allMemories }) {
   const sectionKeys = current.sections.map(s => s.key)
-  const similar = MEMORIES
+  const similar = allMemories
     .filter(m => m.id !== current.id && m.sections.some(s => sectionKeys.includes(s.key)))
     .slice(0, 3)
 
@@ -239,7 +252,20 @@ function SimilarMemories({ current }) {
 // ── Main page ──────────────────────────────────────────
 export default function MemoryDetailPage() {
   const { id } = useParams()
-  const memory = MEMORIES.find(m => m.id === id)
+  const [memory, setMemory] = useState(() => MEMORIES.find(m => m.id === id) || null)
+  const [allMemories, setAllMemories] = useState(MEMORIES)
+  const [shareCardOpen, setShareCardOpen] = useState(false)
+
+  useEffect(() => {
+    let cancelled = false
+    loadMemories().then(data => {
+      if (cancelled || !data?.memories?.length) return
+      setAllMemories(data.memories)
+      const found = data.memories.find(m => m.id === id)
+      if (found) setMemory(found)
+    })
+    return () => { cancelled = true }
+  }, [id])
 
   if (!memory) {
     return (
@@ -254,7 +280,6 @@ export default function MemoryDetailPage() {
     )
   }
 
-  const [shareCardOpen, setShareCardOpen] = useState(false)
   const totalQuestions = memory.sections.reduce((acc, s) => acc + s.questions.length, 0)
   const pri = PRIORITY_META[memory.priority] || PRIORITY_META.medium
 
@@ -390,7 +415,7 @@ export default function MemoryDetailPage() {
 
         {/* Similar memories — full width */}
         <div className={styles.similarSection}>
-          <SimilarMemories current={memory} />
+          <SimilarMemories current={memory} allMemories={allMemories} />
         </div>
       </div>
 

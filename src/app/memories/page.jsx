@@ -1,10 +1,10 @@
 // src/app/memories/page.jsx
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import MemoryCard from '../../components/MemoryCard'
 import WaitlistForm from '../../components/WaitlistForm'
-import { MEMORIES, getMemoriesBySection } from '../../lib/memories'
+import { MEMORIES } from '../../lib/memories'
 import styles from './page.module.css'
 import Footer from '../../components/Footer'
 
@@ -16,9 +16,63 @@ const FILTERS = [
   { key: 'li',  label: '🎧 Listening' },
 ]
 
+// Module-level promise so multiple components share one in-flight request
+let memoriesPromise = null
+let memoriesCache = null
+let memoriesCacheTime = 0
+const CLIENT_CACHE_TTL = 5 * 60 * 1000
+
+async function loadMemories() {
+  const now = Date.now()
+  // Return cached data if fresh
+  if (memoriesCache && now - memoriesCacheTime < CLIENT_CACHE_TTL) {
+    return memoriesCache
+  }
+  // Return in-flight promise if already fetching
+  if (!memoriesPromise) {
+    memoriesPromise = fetch('/api/memories')
+      .then(r => r.json())
+      .then(data => {
+        memoriesCache = data
+        memoriesCacheTime = Date.now()
+        memoriesPromise = null
+        return data
+      })
+      .catch(() => {
+        memoriesPromise = null
+        return null
+      })
+  }
+  return memoriesPromise
+}
+
+function filterBySection(memories, key) {
+  if (!key || key === 'all') return memories
+  return memories.filter(m => m.sections.some(s => s.key === key))
+}
+
 export default function MemoriesPage() {
   const [active, setActive] = useState('all')
-  const filtered = getMemoriesBySection(active)
+  const [memories, setMemories] = useState(MEMORIES) // show samples instantly
+  const [sheetCount, setSheetCount] = useState(0)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    let cancelled = false
+    loadMemories().then(data => {
+      if (cancelled || !data?.memories?.length) return
+      setMemories(data.memories)
+      setSheetCount(data.fromSheets || 0)
+      setLoading(false)
+    }).finally(() => {
+      if (!cancelled) setLoading(false)
+    })
+    return () => { cancelled = true }
+  }, [])
+
+  const filtered = filterBySection(memories, active)
+  const totalReal = sheetCount
+  const totalSample = memories.length - sheetCount
 
   return (
     <>
@@ -32,7 +86,7 @@ export default function MemoriesPage() {
           </p>
           <div className={styles.statsRow}>
             {[
-              { n: '25', l: 'sample memories' },
+              { n: memories.length, l: 'total memories' },
               { n: '14', l: 'countries' },
               { n: 'Feb–Mar 2026', l: 'exam dates' },
               { n: '100%', l: 'admin verified' },
@@ -64,11 +118,25 @@ export default function MemoriesPage() {
       <div className={styles.content}>
         <div className={styles.contentInner}>
 
+          {/* Source legend — only show if we have real sheet memories */}
+          {sheetCount > 0 && (
+            <div className={styles.sourceLegend}>
+              <span className={styles.legendReal}>
+                <span className={styles.legendDot} style={{ background: '#059669' }} />
+                {sheetCount} student-submitted
+              </span>
+              <span className={styles.legendSample}>
+                <span className={styles.legendDot} style={{ background: '#8A8A9A' }} />
+                {totalSample} sample memories
+              </span>
+            </div>
+          )}
+
           {/* Preview banner */}
           <div className={styles.banner}>
             <span className={styles.bannerIcon}>🔒</span>
             <span>
-              Viewing <strong>25 sample memories</strong>. Full platform launches soon with{' '}
+              Viewing <strong>{memories.length} memories</strong>. Full platform launches soon with{' '}
               <strong>1,200+ verified memories</strong> — searchable, filterable, always free.{' '}
               <Link href="/" className={styles.bannerLink}>Join the waitlist →</Link>
             </span>
@@ -78,12 +146,13 @@ export default function MemoriesPage() {
             <span className={styles.resultsCount}>
               Showing <strong>{filtered.length}</strong> memor{filtered.length === 1 ? 'y' : 'ies'}
             </span>
+            {loading && <span className={styles.loadingPill}>⟳ Checking for new memories...</span>}
           </div>
 
           <div className={styles.grid}>
             {filtered.length === 0 ? (
               <div className={styles.empty}>
-                No sample memories for this section yet. <Link href="/" className={styles.bannerLink}>Join waitlist</Link> to be notified at launch.
+                No memories for this section yet. <Link href="/" className={styles.bannerLink}>Join waitlist</Link> to be notified at launch.
               </div>
             ) : (
               filtered.map(m => <MemoryCard key={m.id} memory={m} />)

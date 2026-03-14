@@ -15,6 +15,7 @@ export default function Nav() {
     { href: '/resources', label: 'Resources' },
     { href: '/how-it-works', label: 'How It Works' },
     { href: '/about', label: 'About' },
+    { href: '/submit', label: '📝 Submit Memory' },
   ]
 
   return (
