@@ -119,7 +119,7 @@ export default function MemoriesPage() {
         <div className={styles.contentInner}>
 
           {/* Source legend — only show if we have real sheet memories */}
-          {sheetCount > 0 && (
+          {/* {sheetCount > 0 && (
             <div className={styles.sourceLegend}>
               <span className={styles.legendReal}>
                 <span className={styles.legendDot} style={{ background: '#059669' }} />
@@ -130,7 +130,7 @@ export default function MemoriesPage() {
                 {totalSample} sample memories
               </span>
             </div>
-          )}
+          )} */}
 
           {/* Preview banner */}
           <div className={styles.banner}>
