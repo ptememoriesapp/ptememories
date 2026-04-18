@@ -17,12 +17,13 @@ const SECTIONS = [
 
 const QUESTION_TYPES = {
   sp: [
-    { key: 'ra',  label: 'Read Aloud',            fields: ['topic', 'difficulty', 'wordcount'] },
-    { key: 'rs',  label: 'Repeat Sentence',        fields: ['sentence'] },
-    { key: 'di',  label: 'Describe Image',         fields: ['imagetype', 'topic', 'details'] },
-    { key: 'rl',  label: 'Retell Lecture',         fields: ['topic', 'accent', 'hasdiagram', 'details'] },
-    { key: 'asq', label: 'Answer Short Questions', fields: ['questions'] },
-    { key: 'rts', label: 'Respond to Situation',   fields: ['scenario'] },
+    { key: 'ra',  label: 'Read Aloud',                    fields: ['topic', 'difficulty', 'wordcount'] },
+    { key: 'rs',  label: 'Repeat Sentence',               fields: ['sentence'] },
+    { key: 'di',  label: 'Describe Image',                fields: ['imagetype', 'topic', 'details'] },
+    { key: 'rl',  label: 'Retell Lecture',                fields: ['topic', 'accent', 'hasdiagram', 'details'] },
+    { key: 'sgd', label: 'Summarize Group Discussion',    fields: ['topic', 'details'] },
+    { key: 'asq', label: 'Answer Short Questions',        fields: ['questions'] },
+    { key: 'rts', label: 'Respond to Situation',          fields: ['scenario'] },
   ],
   wr: [
     { key: 'we',  label: 'Write Essay',            fields: ['prompt', 'type'] },
@@ -283,6 +284,14 @@ function QuestionInput({ secKey, qt, qdata, onChange, onRemove, index, secColor,
       {/* Respond to Situation */}
       {qt.key === 'rts' && (
         <textarea className={styles.textarea} rows={3} placeholder="Describe the situation — e.g. You booked a hotel room but arrived to find it double-booked..." value={qdata.scenario || ''} onChange={e => set('scenario', e.target.value)} />
+      )}
+
+      {/* Summarize Group Discussion */}
+      {qt.key === 'sgd' && (
+        <>
+          <input className={styles.input} placeholder="Discussion topic (e.g. Should governments fund arts or sciences?)" value={qdata.topic || ''} onChange={e => set('topic', e.target.value)} />
+          <textarea className={styles.textarea} rows={3} placeholder="Key points discussed — what did each participant argue? What was the main theme?" value={qdata.details || ''} onChange={e => set('details', e.target.value)} />
+        </>
       )}
 
       {/* Write Essay */}
