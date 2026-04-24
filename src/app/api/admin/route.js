@@ -66,5 +66,11 @@ export async function POST(request) {
 
   if (error) return Response.json({ error: error.message }, { status: 500 })
 
+  // Bust the memories API cache so approved memory shows immediately
+  try {
+    const origin = request.headers.get('origin') || 'http://localhost:3000'
+    await fetch(`${origin}/api/memories?bust=1`)
+  } catch { /* non-critical */ }
+
   return Response.json({ status: 'success', action })
 }

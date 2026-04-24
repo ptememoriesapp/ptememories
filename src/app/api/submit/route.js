@@ -1,5 +1,5 @@
 // src/app/api/submit/route.js
-import { supabase, isSupabaseReady } from '../../../lib/supabase'
+import { supabase, supabaseAdmin, isSupabaseReady } from '../../../lib/supabase'
 
 const GRADIENTS = [
   'linear-gradient(135deg,#4F46E5,#818CF8)',
@@ -43,7 +43,7 @@ export async function POST(request) {
     }
 
     // Dev mode fallback
-    if (!isSupabaseReady || !supabase) {
+    if (!isSupabaseReady || !supabaseAdmin) {
       console.log('Dev mode — submission:', JSON.stringify(body, null, 2))
       return Response.json({ status: 'success' })
     }
@@ -53,7 +53,7 @@ export async function POST(request) {
     const gradient = GRADIENTS[nameStr.charCodeAt(0) % GRADIENTS.length]
 
     // 1. Insert memory
-    const { data: mem, error: memErr } = await supabase
+    const { data: mem, error: memErr } = await supabaseAdmin
       .from('memories')
       .insert({
         name:            nameStr,
@@ -86,7 +86,7 @@ export async function POST(request) {
         .map(q => TYPE_LABELS[q.type] || q.type?.toUpperCase() || '')
         .filter(Boolean).join(' · ')
 
-      const { data: sec, error: secErr } = await supabase
+      const { data: sec, error: secErr } = await supabaseAdmin
         .from('sections')
         .insert({ memory_id: mem.id, key: secKey, preview, ord: sectionOrd++ })
         .select('id').single()
@@ -97,7 +97,7 @@ export async function POST(request) {
         const q = qList[qi]
         const sentences = q.sentences?.filter(s => s?.trim()) || null
 
-        await supabase.from('questions').insert({
+        await supabaseAdmin.from('questions').insert({
           section_id: sec.id,
           type:       TYPE_LABELS[q.type] || q.type,
           content:    buildContent(q),

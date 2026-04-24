@@ -11,7 +11,7 @@ import styles from './page.module.css'
 
 // Shared client cache — same request reused across pages
 let _promise = null, _cache = null, _cacheTime = 0
-const TTL = 5 * 60 * 1000
+const TTL = 60 * 1000 // 60 seconds
 async function loadMemories() {
   if (_cache && Date.now() - _cacheTime < TTL) return _cache
   if (!_promise) {

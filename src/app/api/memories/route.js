@@ -7,7 +7,7 @@ import { MEMORIES as SAMPLE_MEMORIES } from '../../../lib/memories'
 
 let cache = null
 let cacheTime = 0
-const CACHE_TTL = 5 * 60 * 1000
+const CACHE_TTL = 60 * 1000 // 60 seconds — fast enough for approvals to reflect quickly
 
 // ── Fetch from Supabase ───────────────────────────────
 async function fetchFromSupabase() {
@@ -37,35 +37,47 @@ async function fetchFromSupabase() {
     }
 
     // Transform to match the shape memories.js uses
-    return memories.map(m => ({
-      id:              m.id,
-      name:            m.name,
-      date:            m.exam_date,
-      location:        m.location,
-      centre:          m.centre,
-      score:           m.score,
-      avatarGradient:  m.avatar_gradient,
-      frequency:       m.frequency,
-      frequencyRange:  m.frequency_range,
-      priority:        m.priority,
-      fromSupabase:    true,
-      sections: (m.sections || [])
-        .sort((a, b) => a.ord - b.ord)
-        .map(s => ({
-          key:      s.key,
-          preview:  s.preview,
-          questions: (s.questions || [])
-            .sort((a, b) => a.ord - b.ord)
-            .map(q => ({
-              type:      q.type,
-              content:   q.content,
-              sentences: q.sentences,
-              tip:       q.tip,
-            }))
-            .filter(q => q.content || q.sentences?.length || q.tip),
-        }))
-        .filter(s => s.questions.length > 0),
-    })).filter(m => m.sections.length > 0)
+    return memories.map(m => {
+      // Format exam_date nicely: "2026-04-04" → "4 Apr 2026"
+      let formattedDate = m.exam_date || ''
+      if (formattedDate && !formattedDate.includes(' ')) {
+        try {
+          // Add time to avoid timezone shifting the date
+          formattedDate = new Date(formattedDate + 'T12:00:00')
+            .toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+        } catch {}
+      }
+
+      return {
+        id:             m.id,
+        name:           m.name,
+        date:           formattedDate,
+        location:       m.location,
+        centre:         m.centre,
+        score:          m.score,
+        avatarGradient: m.avatar_gradient,
+        frequency:      m.frequency,
+        frequencyRange: formattedDate,
+        priority:       m.priority,
+        fromSupabase:   true,
+        sections: (m.sections || [])
+          .sort((a, b) => a.ord - b.ord)
+          .map(s => ({
+            key:      s.key,
+            preview:  s.preview,
+            questions: (s.questions || [])
+              .sort((a, b) => a.ord - b.ord)
+              .map(q => ({
+                type:      q.type,
+                content:   q.content,
+                sentences: q.sentences,
+                tip:       q.tip,
+              }))
+              .filter(q => q.content || q.sentences?.length || q.tip),
+          }))
+          .filter(s => s.questions.length > 0),
+      }
+    }).filter(m => m.sections.length > 0)
 
   } catch (err) {
     console.error('Supabase unexpected error:', err)

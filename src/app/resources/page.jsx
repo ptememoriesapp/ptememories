@@ -89,7 +89,7 @@ const SECTIONS = [
         time: '10s prep · 60–90s response',
         affects: ['Speaking'],
         difficulty: 'hard',
-        overview: 'Listen to a group discussion between 2-4 speakers on a topic. Summarize the different viewpoints expressed in your own words.',
+        overview: 'Listen to a group discussion between 2–4 speakers on a topic. Summarize the different viewpoints expressed in your own words.',
         tips: [
           'Note each speaker\'s main position while listening — they often disagree.',
           'Don\'t just list opinions: "Speaker A argued... while Speaker B felt..." shows comprehension.',
@@ -100,7 +100,7 @@ const SECTIONS = [
         template: 'The discussion focused on [topic]. [Speaker A] argued that [point], while [Speaker B] believed [point]. [Speaker C] added [point]. Overall, the group [conclusion/agreement/disagreement].',
       },
       {
-        name: 'Answer Short Questions',
+         name: 'Answer Short Questions',
         abbr: 'ASQ',
         tasks: '5–6',
         time: 'Immediate response',

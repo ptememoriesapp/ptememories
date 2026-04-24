@@ -642,23 +642,19 @@ export default function SubmitPage() {
   async function handleSubmit() {
     setStatus('submitting')
     try {
-      const scriptUrl = process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL
       const payload = {
-        type: 'memory_submission',
-        date: data.date,
-        city: data.city,
-        country: data.country,
-        centre: data.centre,
-        score: data.score,
-        sections: data.sections.join(', '),
-        questions: JSON.stringify(data.questions),
-        name: data.anonymous ? 'Anonymous' : (data.name || 'Anonymous'),
-        email: data.email,
-        submittedAt: new Date().toISOString(),
-        siteUrl: getSiteUrl(),
+        date:     data.date,
+        city:     data.city,
+        country:  data.country,
+        centre:   data.centre,
+        score:    data.score,
+        sections: data.sections,           // array e.g. ['wr','sp']
+        questions: data.questions,         // object e.g. { wr: [{type:'we',...}] }
+        name:     data.anonymous ? 'Anonymous' : (data.name || 'Anonymous'),
+        email:    data.email,
+        anonymous: data.anonymous,
       }
 
-      // Use proxy route to avoid CORS issues
       const res = await fetch('/api/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

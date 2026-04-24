@@ -20,7 +20,7 @@ const FILTERS = [
 let memoriesPromise = null
 let memoriesCache = null
 let memoriesCacheTime = 0
-const CLIENT_CACHE_TTL = 5 * 60 * 1000
+const CLIENT_CACHE_TTL = 60 * 1000 // 60 seconds
 
 async function loadMemories() {
   const now = Date.now()
