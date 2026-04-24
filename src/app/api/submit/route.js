@@ -26,10 +26,12 @@ const TYPE_LABELS = {
 function makeSlug(name, city, date) {
   const n = (name || 'anonymous').toLowerCase().replace(/[^a-z0-9]+/g, '-').slice(0, 20)
   const c = (city  || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').slice(0, 15)
-  const d = (date  || '').replace(/[^0-9]/g, '').slice(0, 8) // 20260404
-  const r = Math.random().toString(36).slice(2, 6) // 4 random chars
+  const d = (date  || '').replace(/[^0-9]/g, '').slice(0, 8)
+  const r = Math.random().toString(36).slice(2, 6)
   return [n, c, d, r].filter(Boolean).join('-')
 }
+
+function buildContent(q) {
   const parts = []
   const skip = ['type', 'tip', 'sentences']
   for (const [k, v] of Object.entries(q)) {
