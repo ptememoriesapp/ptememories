@@ -100,7 +100,7 @@ const SECTIONS = [
         template: 'The discussion focused on [topic]. [Speaker A] argued that [point], while [Speaker B] believed [point]. [Speaker C] added [point]. Overall, the group [conclusion/agreement/disagreement].',
       },
       {
-         name: 'Answer Short Questions',
+        name: 'Answer Short Questions',      
         abbr: 'ASQ',
         tasks: '5–6',
         time: 'Immediate response',

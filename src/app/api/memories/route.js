@@ -20,7 +20,7 @@ async function fetchFromSupabase() {
       .select(`
         id, name, location, centre, score, exam_date,
         avatar_gradient, frequency, frequency_range,
-        priority, status, created_at,
+        priority, status, created_at, slug,
         sections (
           id, key, preview, ord,
           questions (
@@ -49,7 +49,8 @@ async function fetchFromSupabase() {
       }
 
       return {
-        id:             m.id,
+        id:             m.slug || m.id,  // use slug for URL, fallback to uuid
+        dbId:           m.id,            // keep real uuid for reference
         name:           m.name,
         date:           formattedDate,
         location:       m.location,
